@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using PrototipoWebApi_1.Repositorios;
+using PrototipoWebApi_1.Modelos;
 
 namespace PrototipoWebApi_1.Configurations
 {

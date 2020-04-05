@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using PrototipoWebApi_1.Repositorios;
+using PrototipoWebApi_1.Interfaces;
+using PrototipoWebApi_1.Modelos;
 
 namespace PrototipoWebApi_1.Controllers
 {
@@ -13,114 +10,35 @@ namespace PrototipoWebApi_1.Controllers
     [ApiController]
     public class ClientesController : ControllerBase
     {
-        private readonly RepositoryBase _context;
+        private readonly IUtilServices _utilServices;
 
-        public ClientesController(RepositoryBase context)
+        public ClientesController(IUtilServices context)
         {
-            _context = context;
+            _utilServices = context;
         }
 
         // GET: api/    
         [HttpGet]
-        public IEnumerable<Cliente> GetClientes()
-        {
-            var result =  _context.Clientes;
-            return result;
-        }
+        public IEnumerable<Cliente> GetClientes() => _utilServices.GetAllClientes();
+
 
         // GET: api/Clientes/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetCliente([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var cliente = await _context.Clientes.FindAsync(id);
-
-            if (cliente == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(cliente);
-        }
-
-        // PUT: api/Clientes/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutCliente([FromRoute] int id, [FromBody] Cliente cliente)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != cliente.Cli_I_Codigo)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(cliente).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ClienteExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
+        public async Task<Cliente> GetCliente([FromRoute] int id) => await _utilServices.GetClienteById(id);
 
         // POST: api/Clientes
-        [HttpPost]
-        public async Task<IActionResult> PostCliente([FromBody] Cliente cliente)
+        [HttpPost("clientes")]
+        public async Task<IActionResult> PostColaborador([FromBody] Cliente cliente )
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+            await
+             _utilServices.SaveCliente(cliente);
 
-            _context.Clientes.Add(cliente);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetCliente", new { id = cliente.Cli_I_Codigo }, cliente);
+            return CreatedAtAction("GetProyectos", new { id = cliente.Cli_I_Codigo }, cliente);
         }
 
-        // DELETE: api/Clientes/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCliente([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var cliente = await _context.Clientes.FindAsync(id);
-            if (cliente == null)
-            {
-                return NotFound();
-            }
-
-            _context.Clientes.Remove(cliente);
-            await _context.SaveChangesAsync();
-
-            return Ok(cliente);
-        }
-
-        private bool ClienteExists(int id)
-        {
-            return _context.Clientes.Any(e => e.Cli_I_Codigo == id);
-        }
     }
 }

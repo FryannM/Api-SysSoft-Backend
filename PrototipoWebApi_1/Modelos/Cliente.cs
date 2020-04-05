@@ -1,40 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 
-namespace PrototipoWebApi_1.Repositorios
+namespace PrototipoWebApi_1.Modelos
 {
     public class Cliente
     {
         [Key]
+        [JsonProperty(PropertyName = "Codigo")]
         public int Cli_I_Codigo { get; set; }
-        [Column(TypeName =("varchar(30)"))]
+
+        [JsonProperty(PropertyName = "Nombre")]
         public string Cli_V_Nombre_1 { get; set; }
-        [Column(TypeName = ("varchar(30)"))]
 
+        [JsonProperty(PropertyName = "Nombre2")]
         public string Cli_V_Nombre_2 { get; set; }
-        [Column(TypeName = ("varchar(30)"))]
 
+        [JsonProperty(PropertyName = "Apellido")]
         public string Cli_V_Apellido_1 { get; set; }
-        [Column(TypeName = ("varchar(30)"))]
 
+
+        [JsonProperty(PropertyName = "Apellido2")]
         public string Cli_V_Apellido_2 { get; set; }
-        [Column(TypeName = ("varchar(30)"))]
 
+        [JsonProperty(PropertyName = "CedulaORnc")]
         public string Cli_V_CedulaRnc { get; set; }
-        [Column(TypeName = ("varchar(30)"))]
 
+        [JsonProperty(PropertyName = "Email")]
         public string Cli_V_email { get; set; }
-        [Column(TypeName = ("varchar(30)"))]
 
+        [JsonProperty(PropertyName = "Telefono")]
         public string Cli_V_Telefono { get; set; }
-        [Column(TypeName = ("varchar(30)"))]
+
+        [JsonProperty(PropertyName = "ProyectoCodigo")]
         public int Pro_I_Codigo { get; set; }
-        [ForeignKey("Pro_I_Codigo")]
-        public virtual ICollection<Proyecto> Proyectos{ get; set; }
 
     }
 }

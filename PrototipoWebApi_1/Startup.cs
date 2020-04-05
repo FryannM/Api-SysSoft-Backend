@@ -28,6 +28,8 @@ namespace PrototipoWebApi_1
             services.AddDbContext<RepositoryBase>(option => option.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
             services.AddTransient<IDepartamentoServices, DepartamentoServices>();
             services.AddTransient<IColaboradoreServices, ColaboradorServices>();
+            services.AddTransient<IUtilServices, PosicionServices>();
+
             services.AddOData();
 
 

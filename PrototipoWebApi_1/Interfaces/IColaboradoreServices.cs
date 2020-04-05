@@ -1,12 +1,10 @@
-﻿using PrototipoWebApi_1.Modelos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using PrototipoWebApi_1.Modelos;
 
 namespace PrototipoWebApi_1.Interfaces
 {
-   public interface IColaboradoreServices
+    public interface IColaboradoreServices
     {
 
         IEnumerable<Colaborador> GetColaboradors();

@@ -1,33 +1,51 @@
-﻿using PrototipoWebApi_1.Interfaces;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using PrototipoWebApi_1.Interfaces;
 using PrototipoWebApi_1.Modelos;
 using PrototipoWebApi_1.Repositorios;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PrototipoWebApi_1.Services
 {
     public class DepartamentoServices : IDepartamentoServices
     {
-        RepositoryBase _DepartamentoServices;
+        RepositoryBase _departamentoServices;
 
         public DepartamentoServices( RepositoryBase DepartamentoServices)
         {
-            _DepartamentoServices = DepartamentoServices;
+            _departamentoServices = DepartamentoServices;
         }       
         public IEnumerable<Departamento> GetDepartamentos()
         {
-            var result = _DepartamentoServices.Departamentos;
+            var result = _departamentoServices.Departamentos;
             return result;
         }
 
         public Departamento GetDepartamentosbyId(int id)
         {
-            var result = _DepartamentoServices.Departamentos.Find(id);
+            var result = _departamentoServices.Departamentos.Find(id);
 
             return result;
 
         }
+
+        public  async Task<Departamento> SaveDepartamento(Departamento departamento)
+        {
+            try
+            {
+
+                var result = _departamentoServices.Departamentos.AddAsync(departamento);
+                _departamentoServices.Entry(departamento).State = EntityState.Detached;
+                await _departamentoServices.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return departamento;
+        }
+        }
     }
-}
+
