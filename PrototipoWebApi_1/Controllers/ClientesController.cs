@@ -18,7 +18,7 @@ namespace PrototipoWebApi_1.Controllers
         }
 
         // GET: api/    
-        [HttpGet]
+        [HttpGet("clientes")]
         public IEnumerable<Cliente> GetClientes() => _utilServices.GetAllClientes();
 
 
