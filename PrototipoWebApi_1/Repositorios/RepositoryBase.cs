@@ -17,7 +17,7 @@ namespace PrototipoWebApi_1.Repositorios
         public DbSet<Team> Team { get; set; }
         public DbSet<Materias> Materias { get; set; }
         public DbSet<Posicion> Posicion { get; set; }
-        public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Usuario> Usuario { get; set; }
 
     }
 }

@@ -1,13 +1,22 @@
-﻿using System;
+﻿using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
+
 namespace PrototipoWebApi_1.Modelos
 {
     public class Usuario
     {
-        public int Codigo { get; set; }
-        public string Nombre { get; set; }
-        public string NombreUsuario  { get; set; }
-        public string Password { get; set; }
-        public string Email { get; set; }
-        public string Roles { get; set; }
+        [Key]
+        [JsonProperty(PropertyName = "Codigo")]
+        public int Usr_I_CodigoUsuario { get; set; }
+        [JsonProperty(PropertyName = "Nombre")]
+        public string Usr_V_Nombre { get; set; }
+        [JsonProperty(PropertyName = "Usuario")]
+        public string Usr_V_NombreUsuario  { get; set; }
+        [JsonProperty(PropertyName = "Password")]
+        public string Usr_V_PassWord { get; set; }
+        [JsonProperty(PropertyName = "Email")]
+        public string Usr_V_Email { get; set; }
+        [JsonProperty(PropertyName = "Cargo")]
+        public int Usr_I_Cargo { get; set; }
     }
 }

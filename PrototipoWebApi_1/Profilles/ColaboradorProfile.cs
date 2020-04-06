@@ -21,6 +21,7 @@ namespace PrototipoWebApi_1.Profilles
                     Dep_V_Descripcion = dest.Departamento.FirstOrDefault().Dep_V_Descripcion
                 }));
 
+            CreateMap<Usuario, Login>().ReverseMap();
 
         }
     }

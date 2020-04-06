@@ -19,10 +19,9 @@ namespace PrototipoWebApi_1.Controllers
         public UsuarioController(IUtilServices utilServices)
         {
             _utilServices = utilServices;
-
         }
-        // GET: api/values
-        [HttpGet]
+        
+        [HttpGet("usuarios")]
         public IEnumerable<Usuario> Get() => _utilServices.GetAllUsuarios();
 
         // GET api/values/5
@@ -39,10 +38,8 @@ namespace PrototipoWebApi_1.Controllers
 
         // PUT api/values/5
         [HttpPost("login")]
-        public void Put(int id, [FromBody]Login login)
-        {
-             
-        }
+        public Login Login([FromBody]Login login)  =>  _utilServices.Login(login);
+        
 
 
     }
