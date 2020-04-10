@@ -24,6 +24,8 @@ namespace PrototipoWebApi_1
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddCors();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddDbContext<RepositoryBase>(option => option.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
             services.AddTransient<IDepartamentoServices, DepartamentoServices>();
@@ -31,13 +33,14 @@ namespace PrototipoWebApi_1
             services.AddTransient<IUtilServices, PosicionServices>();
 
             services.AddOData();
-
+        
 
             
             var config = new AutoMapper.MapperConfiguration(cfg => {    
                 cfg.AddProfile(new ColaboradorProfile());
              });
 
+          
             var mapper = config.CreateMapper();
             services.AddSingleton(mapper);
 
@@ -55,10 +58,18 @@ namespace PrototipoWebApi_1
             {
                 app.UseHsts();
             }
+            app.UseCors(x =>
+            {
+                x.WithOrigins("https://localhost:5001")
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials();
+            });
+            //app.UseCors(options => options.WithOrigins("https://localhost:5001").AllowAnyMethod());
 
             app.UseHttpsRedirection();
             app.UseMvc();
-
 
             app.UseMvc(FryannBuilder =>
            {
@@ -66,6 +77,8 @@ namespace PrototipoWebApi_1
                FryannBuilder.Expand().Filter().Select().MaxTop(200);
            });
 
+
+         
 
         }
     }
