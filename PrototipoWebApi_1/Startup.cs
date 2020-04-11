@@ -8,7 +8,7 @@ using PrototipoWebApi_1.Interfaces;
 using PrototipoWebApi_1.Profilles;
 using PrototipoWebApi_1.Repositorios;
 using PrototipoWebApi_1.Services;
-using Microsoft.AspNet.OData.Extensions;
+using Microsoft.OpenApi.Models;
 
 namespace PrototipoWebApi_1
 {
@@ -32,7 +32,6 @@ namespace PrototipoWebApi_1
             services.AddTransient<IColaboradoreServices, ColaboradorServices>();
             services.AddTransient<IUtilServices, PosicionServices>();
 
-            services.AddOData();
         
 
             
@@ -40,7 +39,11 @@ namespace PrototipoWebApi_1
                 cfg.AddProfile(new ColaboradorProfile());
              });
 
-          
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo{ Title = "SysSoft ", Version = "2.1" });
+            });
+
             var mapper = config.CreateMapper();
             services.AddSingleton(mapper);
 
@@ -58,6 +61,15 @@ namespace PrototipoWebApi_1
             {
                 app.UseHsts();
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("v1/swagger.json", "MyAPI V1");
+            });
+
+         
+
             app.UseCors(x =>
             {
                 x.WithOrigins("https://localhost:5001")
@@ -66,16 +78,22 @@ namespace PrototipoWebApi_1
                 .AllowAnyHeader()
                 .AllowCredentials();
             });
+
+            //app.UseSwaggerUI(c =>
+            //{
+            //    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            //    c.RoutePrefix = string.Empty;
+            //});
             //app.UseCors(options => options.WithOrigins("https://localhost:5001").AllowAnyMethod());
 
             app.UseHttpsRedirection();
             app.UseMvc();
 
-            app.UseMvc(FryannBuilder =>
-           {
-               FryannBuilder.EnableDependencyInjection();
-               FryannBuilder.Expand().Filter().Select().MaxTop(200);
-           });
+           // app.UseMvc(FryannBuilder =>
+           //{
+           //    FryannBuilder.EnableDependencyInjection();
+           //    FryannBuilder.Expand().Filter().Select().MaxTop(200);
+           //});
 
 
          

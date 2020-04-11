@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.AspNet.OData;
 using Microsoft.AspNetCore.Mvc;
 using PrototipoWebApi_1.Dtos;
 using PrototipoWebApi_1.Interfaces;
@@ -26,7 +25,6 @@ namespace PrototipoWebApi_1.Controllers
         }
 
         // GET: api/Colaboradors
-        [EnableQuery]
         [Route("colaboladores")]
         [HttpGet]
         public IEnumerable<Colaborador> GetColaboradors()
