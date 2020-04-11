@@ -29,7 +29,7 @@ namespace PrototipoWebApi_1.Services
         /// Posicion Mantenimientos 
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Posicion> GetAllPosiciones()  => _utilServices.Posicion;
+        public IEnumerable<Posicion> GetAllPosiciones() => _utilServices.Posicion;
         public async Task<Posicion> GetPosicionById(int id)  => await _utilServices.Posicion.FindAsync(id);
 
         public async Task<Posicion> SavePosicion(Posicion posicion)
@@ -93,12 +93,12 @@ namespace PrototipoWebApi_1.Services
 
         public async Task<Proyecto> Update(Proyecto proyectos)
         {
-            var result = await _utilServices.Proyectos.FindAsync(proyectos.Pro_I_Codigo);
+           // var result = await _utilServices.Proyectos.FindAsync(proyectos.Pro_I_Codigo);
 
             try
             {
-                 _utilServices.Proyectos.Update(result);
-                _utilServices.Entry(result).State = EntityState.Modified;
+                 _utilServices.Proyectos.Update(proyectos);
+                _utilServices.Entry(proyectos).State = EntityState.Modified;
 
                 await _utilServices.SaveChangesAsync();
             }
@@ -106,7 +106,7 @@ namespace PrototipoWebApi_1.Services
             {
                 throw ex;
             }
-            return result;
+            return proyectos;
         }
 
 

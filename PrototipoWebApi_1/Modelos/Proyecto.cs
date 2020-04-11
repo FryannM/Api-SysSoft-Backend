@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 
@@ -13,5 +14,12 @@ namespace PrototipoWebApi_1.Modelos
         [Column(TypeName =("varchar(60)"))]
         [JsonProperty(PropertyName = "Descripcion")]
         public string Pro_V_Descripcion { get; set; }
+        public DateTime Fecha_Inicio { get; set; }
+        public DateTime Fecha_Fin { get; set; }
+        public char Estado { get; set; }
+
+
+        
+
     }
 }

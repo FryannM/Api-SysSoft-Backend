@@ -17,6 +17,15 @@ namespace PrototipoWebApi_1.Configurations
 
             builder.Property(x => x.Pos_V_Descripcion)
                .HasColumnName("Pos_V_Descripcion");
+
+            builder.Property(x => x.Estado)
+              .HasColumnName("Estado");
+
+            builder.Property(x => x.Sueldo)
+              .HasColumnName("Sueldo");
+
+            builder.Property(x => x.Perfil)
+              .HasColumnName("Perfil");
         }
     }
 }   
