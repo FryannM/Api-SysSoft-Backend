@@ -21,14 +21,10 @@ namespace PrototipoWebApi_1.Configurations
 
             builder.Property(x => x.Usuario);
 
-            builder.HasOne(x => x.Proyecto)
-                .WithOne(x => x.Tareas)
-                .HasForeignKey<Proyecto>( x => x.Pro_I_Codigo);
+            builder.HasOne(x => x.Proyecto);
 
-
-            builder.HasOne(x => x.Usuario)
-               .WithOne(x => x.Tareas)
-               .HasForeignKey<Usuario>(x => x.Usr_I_CodigoUsuario);
+            builder.HasOne(x => x.Usuario);
+              
 
             builder.Property(x => x.Usr_I_CodigoUsuario)
              .HasColumnName("Usr_I_CodigoUsuario");

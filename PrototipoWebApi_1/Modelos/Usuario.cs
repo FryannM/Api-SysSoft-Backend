@@ -22,7 +22,7 @@ namespace PrototipoWebApi_1.Modelos
         public string Usr_V_Email { get; set; }
         [JsonProperty(PropertyName = "Cargo")]
         public int Usr_I_Cargo { get; set; }
-        public virtual Tareas Tareas { get; set; }
+        //public virtual Tareas Tareas { get; set; }
 
     }
 }
