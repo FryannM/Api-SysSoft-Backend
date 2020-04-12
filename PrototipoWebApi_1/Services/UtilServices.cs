@@ -149,8 +149,8 @@ namespace PrototipoWebApi_1.Services
            
             try
             {
-                _utilServices.Usuario.AddAsync(usuario);
-                _utilServices.SaveChangesAsync();
+                _utilServices.Usuario.Add(usuario);
+                _utilServices.SaveChanges();
 
                 result.Success = true;
                 result.ResultObject = usuario;
@@ -189,7 +189,8 @@ namespace PrototipoWebApi_1.Services
                            Fecha = x.FechaCreacion,
                            Titulo = x.Titulo,
                            Usuario = x.Usuario.Usr_V_Nombre,
-                           Proyecto = x.Proyecto.Pro_V_Descripcion
+                           Proyecto = x.Proyecto.Pro_V_Descripcion,
+                           Comentario = x.Comentario
                         });
            
             return result;
@@ -208,15 +209,47 @@ namespace PrototipoWebApi_1.Services
                             Fecha = x.FechaCreacion,
                             Titulo = x.Titulo,
                             Usuario = x.Usuario.Usr_V_Nombre,
-                            Proyecto = x.Proyecto.Pro_V_Descripcion
+                            Proyecto = x.Proyecto.Pro_V_Descripcion,
+                            Comentario = x.Comentario
                         }).Where(x => x.Codigo == id).Single();
 
             return   result;
         }
 
-        public OperationResult<Tareas> SaveTareas(Tareas usuario)
+
+        private Tareas  MapModel(TareaSaveDto tareas)
         {
-            throw new NotImplementedException();
+            return new Tareas
+            {
+                Codigo = tareas.Codigo,
+                Titulo = tareas.Titulo,
+                Estado = tareas.Estado,
+                FechaCreacion = tareas.Fecha,
+                Pro_I_Codigo = tareas.CodigoProyecto,
+                Usr_I_CodigoUsuario = tareas.CodigoUsuario,
+                Comentario = tareas.Comentario,
+            };
+        }
+
+        public OperationResult<Tareas> SaveTareas(TareaSaveDto tareas)
+        {
+            var result = new OperationResult<Tareas>();
+            var model = MapModel(tareas);
+
+            try
+            {
+                _utilServices.Tareas.Add(model);
+                _utilServices.SaveChanges();
+
+                result.Success = true;
+                result.ResultObject = model;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return result;
         }
     }
+    
 }
