@@ -45,6 +45,16 @@ namespace PrototipoWebApi_1.Services
             }
             return posicion;
         }
+
+
+
+
+
+
+
+
+
+
         /// <summary>
         /// Team Services
         /// </summary>
@@ -101,6 +111,13 @@ namespace PrototipoWebApi_1.Services
             }
             return result;
         }
+
+
+
+
+
+
+
         /// <summary>
         ///  Proyectos Mantenimientos
         /// </summary>
@@ -128,7 +145,6 @@ namespace PrototipoWebApi_1.Services
 
         public async Task<Proyecto> Update(Proyecto proyectos)
         {
-           // var result = await _utilServices.Proyectos.FindAsync(proyectos.Pro_I_Codigo);
 
             try
             {
@@ -148,25 +164,89 @@ namespace PrototipoWebApi_1.Services
 
 
 
+
+
+
+
+
+
         /// <summary>
         /// Cliente Mantenimientos
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Cliente> GetAllClientes() => _utilServices.Clientes;
-        public async Task<Cliente> GetClienteById(int id) =>  await _utilServices.Clientes.FindAsync(id);
-       
-        public async  Task<Cliente> SaveCliente(Cliente cliente)
+        public IEnumerable<ClienteDto> GetAllClientes()
         {
+            var result = _utilServices.Clientes
+                    .Select(x => new ClienteDto
+                    {
+                        Codigo = x.Cli_I_Codigo,
+                        Nombre1 = x.Cli_V_Nombre_1,
+                        Nombre2 = x.Cli_V_Nombre_2,
+                        Apellido1 = x.Cli_V_Apellido_1,
+                        Apellido2 = x.Cli_V_Apellido_2,
+                       CedulaRnc   = x.Cli_V_CedulaRnc,
+                       Telefono = x.Cli_V_Telefono,
+                       Email  = x.Cli_V_email,
+                       Proyecto = x.Proyecto.Pro_V_Descripcion,
+                    });
+
+            return result;
+        }
+
+        public   ClienteDto GetClienteById(int id)
+        {
+            var result = _utilServices.Clientes
+                    .Select(x => new ClienteDto
+                    {
+                        Codigo = x.Cli_I_Codigo,
+                        Nombre1 = x.Cli_V_Nombre_1,
+                        Nombre2 = x.Cli_V_Nombre_2,
+                        Apellido1 = x.Cli_V_Apellido_1,
+                        Apellido2 = x.Cli_V_Apellido_2,
+                        CedulaRnc = x.Cli_V_CedulaRnc,
+                        Telefono = x.Cli_V_Telefono,
+                        Email = x.Cli_V_email,
+                        Proyecto = x.Proyecto.Pro_V_Descripcion,
+                    }).Where(x => x.Codigo == id).Single() ;
+
+            return result;
+        }
+
+        private Cliente MapModel(ClienteDtoSave clientes)
+        {
+            return new Cliente
+            {
+                Cli_I_Codigo = clientes.Codigo,
+                Cli_V_Nombre_1 = clientes.Nombre1,
+                Cli_V_Nombre_2 = clientes.Nombre2,
+                Cli_V_Apellido_1 = clientes.Apellido1,
+                Cli_V_Apellido_2 = clientes.Apellido2,
+                Cli_V_CedulaRnc = clientes.CedulaRnc,
+                Cli_V_email = clientes.Email,
+                Cli_V_Telefono = clientes.Telefono,
+                Pro_I_Codigo = clientes.Proyecto,
+
+            };
+        }
+
+        public OperationResult<Cliente> SaveClientes(ClienteDtoSave cliente)
+        {
+            var result = new OperationResult<Cliente>();
+            var model = MapModel(cliente);
+
             try
             {
-                var result = _utilServices.Clientes.AddAsync(cliente);
-                await _utilServices.SaveChangesAsync();
+                _utilServices.Clientes.Add(model);
+                _utilServices.SaveChanges();
+
+                result.Success = true;
+                result.ResultObject = model;
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-            return cliente;
+            return result;
         }
 
         /// <summary>
@@ -219,7 +299,7 @@ namespace PrototipoWebApi_1.Services
                 var result = _utilServices.Tareas
                         .Select(x =>  new TareasDto
                         {
-                            Codigo = x.Codigo,
+                           Codigo = x.Codigo,
                            Estado = x.Estado,
                            Fecha = x.FechaCreacion,
                            Titulo = x.Titulo,
@@ -285,6 +365,7 @@ namespace PrototipoWebApi_1.Services
             }
             return result;
         }
+
+      
     }
-    
 }

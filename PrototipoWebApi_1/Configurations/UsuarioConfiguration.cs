@@ -27,6 +27,7 @@ namespace PrototipoWebApi_1.Configurations
 
             builder.Property(x => x.Usr_I_Cargo)
             .HasColumnName("Usr_I_Cargo");
+            builder.HasOne(x => x.Cargo);
         }
     }
 }

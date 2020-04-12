@@ -1,7 +1,5 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
 namespace PrototipoWebApi_1.Modelos
 {
@@ -9,7 +7,6 @@ namespace PrototipoWebApi_1.Modelos
 	public class Tareas
 	{
 		[Key]
-
 		public int Codigo { get; set; }
 		public string Titulo { get; set; }
 		public int Usr_I_CodigoUsuario { get; set; }

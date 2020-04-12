@@ -39,6 +39,8 @@ namespace PrototipoWebApi_1.Configurations
               builder.Property(x => x.Pro_I_Codigo)
              .HasColumnName("Pro_I_Codigo");
 
+              builder.HasOne(x => x.Proyecto);
+
         }
     }
 }
@@ -49,11 +51,4 @@ namespace PrototipoWebApi_1.Configurations
 
 
 
-//
-//       
-//        
-//        
-//         
-//         
-//         
-//          
+   

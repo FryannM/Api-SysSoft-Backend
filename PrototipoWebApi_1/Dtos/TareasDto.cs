@@ -10,6 +10,5 @@ namespace PrototipoWebApi_1.Dtos
         public char Estado { get; set; }
         public DateTime Fecha { get; set; }
         public string Comentario { get; set; }
-
     }
 }
