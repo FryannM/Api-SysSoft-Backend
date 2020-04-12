@@ -26,8 +26,11 @@ namespace PrototipoWebApi_1.Configurations
             builder.Property(x => x.FechaCreacion)
              .HasColumnName("FechaCreacion");
 
-            builder.Property(x => x.Proyectos)
-             .HasColumnName("Proyectos");
+            builder.Property(x => x.Pro_I_Codigo)
+             .HasColumnName("Pro_I_Codigo");
+
+            builder.HasOne(x => x.Proyecto);
+           
         }
     }
 }

@@ -8,7 +8,6 @@ namespace PrototipoWebApi_1.Modelos
     public class Proyecto
     {
         [Key]
-
         [JsonProperty(PropertyName = "Codigo")]
         public int Pro_I_Codigo { get; set; }
         [Column(TypeName =("varchar(60)"))]
@@ -18,9 +17,5 @@ namespace PrototipoWebApi_1.Modelos
         public DateTime Fecha_Fin { get; set; }
         public char Estado { get; set; }
         public virtual Tareas Tareas { get; set; }
-
-
-        
-
     }
 }

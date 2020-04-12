@@ -50,21 +50,56 @@ namespace PrototipoWebApi_1.Services
         /// </summary>
         /// <returns></returns>
 
-        public IEnumerable<Team> GetlAllTeams() =>  _utilServices.Team;
-        public async Task<Team> GetlTeamsById(int id) => await _utilServices.Team.FindAsync(id);
-        
-        public async  Task<Team> SaveTeam(Team team)
+        public IEnumerable<TeamDto> GetlAllTeams()
         {
+            var result = _utilServices.Team
+                    .Select(x => new TeamDto
+                    {
+                        Codigo = x.Codigo,
+                        Descripcion = x.Descripcion,
+                        Proyecto = x.Proyecto.Pro_V_Descripcion,
+                        CantidadIntegrantes = x.CantidadIntegrantes,
+                        Estado = x.Estado,
+                        FechaCreacion = x.FechaCreacion
+                    });
+
+            return result;
+        }
+
+
+        public async Task<Team> GetlTeamsById(int id) => await _utilServices.Team.FindAsync(id);
+
+
+        private Team MapModel(TeamSaveDto team)
+        {
+            return new Team
+            {
+                Codigo = team.Codigo,
+                Descripcion = team.Descripcion,
+                Estado = team.Estado,
+                CantidadIntegrantes = team.CantidadIntegrantes,
+                Pro_I_Codigo = team.Pro_I_Codigo,
+                FechaCreacion = team.FechaCreacion,
+            };
+        }
+        public OperationResult<Team> SaveTeam(TeamSaveDto team)
+        {
+            var result = new OperationResult<Team>();
+            var model = MapModel(team);
+
             try
             {
-                var result = _utilServices.Team.AddAsync(team);
-                await _utilServices.SaveChangesAsync();
+                _utilServices.Team.Add(model);
+                _utilServices.SaveChanges();
+
+                result.Success = true;
+                result.ResultObject = model;
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-            return team;
+            return result;
         }
         /// <summary>
         ///  Proyectos Mantenimientos
