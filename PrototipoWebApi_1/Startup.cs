@@ -65,10 +65,9 @@ namespace PrototipoWebApi_1
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("v1/swagger.json", "MyAPI V1");
+                c.SwaggerEndpoint("v1/swagger.json", "Sys Api");
             });
 
-         
 
             app.UseCors(x =>
             {
@@ -79,25 +78,9 @@ namespace PrototipoWebApi_1
                 .AllowCredentials();
             });
 
-            //app.UseSwaggerUI(c =>
-            //{
-            //    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-            //    c.RoutePrefix = string.Empty;
-            //});
-            //app.UseCors(options => options.WithOrigins("https://localhost:5001").AllowAnyMethod());
-
+           
             app.UseHttpsRedirection();
             app.UseMvc();
-
-           // app.UseMvc(FryannBuilder =>
-           //{
-           //    FryannBuilder.EnableDependencyInjection();
-           //    FryannBuilder.Expand().Filter().Select().MaxTop(200);
-           //});
-
-
-         
-
         }
     }
 }

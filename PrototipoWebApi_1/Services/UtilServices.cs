@@ -173,7 +173,50 @@ namespace PrototipoWebApi_1.Services
             result.ResultObject = model;
             return result;
         }
+        /// <summary>
+        /// Tareas Mantenimiento
+        /// </summary>
+        /// <returns></returns>
 
-       
+        public IEnumerable<TareasDto> GetAllTareas()
+        {
+
+                var result = _utilServices.Tareas
+                        .Select(x =>  new TareasDto
+                        {
+                            Codigo = x.Codigo,
+                           Estado = x.Estado,
+                           Fecha = x.FechaCreacion,
+                           Titulo = x.Titulo,
+                           Usuario = x.Usuario.Usr_V_Nombre,
+                           Proyecto = x.Proyecto.Pro_V_Descripcion
+                        });
+           
+            return result;
+        }
+            
+           
+
+
+        public  TareasDto GetTareaById(int id)
+        {
+            var result =   _utilServices.Tareas
+                        .Select(x => new TareasDto
+                        {
+                            Codigo = x.Codigo,
+                            Estado = x.Estado,
+                            Fecha = x.FechaCreacion,
+                            Titulo = x.Titulo,
+                            Usuario = x.Usuario.Usr_V_Nombre,
+                            Proyecto = x.Proyecto.Pro_V_Descripcion
+                        }).Where(x => x.Codigo == id).Single();
+
+            return   result;
+        }
+
+        public OperationResult<Tareas> SaveTareas(Tareas usuario)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
