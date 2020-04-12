@@ -23,25 +23,20 @@ namespace PrototipoWebApi_1.Controllers
         }
         
         [HttpGet("usuarios")]
-        public IEnumerable<Usuario> Get() => _utilServices.GetAllUsuarios();
+        public IActionResult Get() => Ok( _utilServices.GetAllUsuarios());
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public async Task<Usuario> GetUsuarioById(int id)
-            => await _utilServices.GetUsuarioById(id);
- 
+        public IActionResult GetUsuarioById(int id)
+            => Ok( _utilServices.GetUsuarioById(id));
 
-        // POST api/
-        [HttpPost]
-        public void Post([FromBody]Usuario usuario)
-        {
-        }
+        [HttpPost("usuario")]
+        public OperationResult<Usuario> Post([FromBody]UsuarioSaveDto model)
+           => _utilServices.SaveUsuario(model);
 
         // PUT api/values/5
         [HttpPost("login")]
         public  OperationResult <Usuario> Login([FromBody]Login login)  =>  _utilServices.Login(login);
-        
-
 
     }
 }

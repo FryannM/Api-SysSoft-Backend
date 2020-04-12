@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
@@ -21,8 +19,8 @@ namespace PrototipoWebApi_1.Modelos
         [JsonProperty(PropertyName = "Email")]
         public string Usr_V_Email { get; set; }
         [JsonProperty(PropertyName = "Cargo")]
-        public int Usr_I_Cargo { get; set; }
-        //public virtual Tareas Tareas { get; set; }
+        public int Pos_I_Codigo { get; set; }
+        public virtual Posicion Cargo { get; set; }
 
     }
 }

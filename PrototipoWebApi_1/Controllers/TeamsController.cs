@@ -21,6 +21,8 @@ namespace PrototipoWebApi_1.Controllers
         [HttpGet("teams")]
         public IActionResult Get() => Ok(_utilServices.GetlAllTeams());
 
+        [HttpGet("{id}")]
+        public IActionResult GetTeamById(int id) => Ok(_utilServices.GetlTeamsById(id));
 
         [HttpPost("team")]
         public OperationResult<Team> Login([FromBody]TeamSaveDto model)

@@ -212,35 +212,19 @@ namespace PrototipoWebApi_1.Services
             return result;
         }
 
-        private Cliente MapModel(ClienteDtoSave clientes)
-        {
-            return new Cliente
-            {
-                Cli_I_Codigo = clientes.Codigo,
-                Cli_V_Nombre_1 = clientes.Nombre1,
-                Cli_V_Nombre_2 = clientes.Nombre2,
-                Cli_V_Apellido_1 = clientes.Apellido1,
-                Cli_V_Apellido_2 = clientes.Apellido2,
-                Cli_V_CedulaRnc = clientes.CedulaRnc,
-                Cli_V_email = clientes.Email,
-                Cli_V_Telefono = clientes.Telefono,
-                Pro_I_Codigo = clientes.Proyecto,
-
-            };
-        }
+     
 
         public OperationResult<Cliente> SaveClientes(ClienteDtoSave cliente)
         {
             var result = new OperationResult<Cliente>();
-            var model = MapModel(cliente);
 
             try
             {
-                _utilServices.Clientes.Add(model);
+                _utilServices.Clientes.Add(cliente.MapModel());
                 _utilServices.SaveChanges();
 
                 result.Success = true;
-                result.ResultObject = model;
+                result.ResultObject = cliente.MapModel();
             }
             catch (Exception ex)
             {
@@ -253,22 +237,51 @@ namespace PrototipoWebApi_1.Services
         /// Usuario Mantenimiento
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Usuario> GetAllUsuarios() => _utilServices.Usuario;
+        public IEnumerable<UsuarioDto> GetAllUsuarios()
+        {
+            var result = _utilServices.Usuario
+                    .Select(x => new UsuarioDto
+                    {
+                        Codigo = x.Usr_I_CodigoUsuario,
+                        Nombre = x.Usr_V_Nombre,
+                        NombreUsuario = x.Usr_V_NombreUsuario,
+                        PassWord = x.Usr_V_PassWord,
+                        Cargo = x.Cargo.Pos_V_Descripcion,
+                        Email = x.Usr_V_Email,
+                    });
 
-        public async Task<Usuario> GetUsuarioById(int id) => await _utilServices.Usuario.FindAsync(id);
+            return result;
+        }
 
 
-        public OperationResult<Usuario> SaveUsuario(Usuario usuario)
+        public  UsuarioDto  GetUsuarioById(int id)
+        {
+            var result = _utilServices.Usuario
+                    .Select(x => new UsuarioDto
+                    {
+                        Codigo = x.Usr_I_CodigoUsuario,
+                        Nombre = x.Usr_V_Nombre,
+                        NombreUsuario = x.Usr_V_NombreUsuario,
+                        PassWord = x.Usr_V_PassWord,
+                        Cargo = x.Cargo.Pos_V_Descripcion,
+                        Email = x.Usr_V_Email,
+                    }).Where(x => x.Codigo == id).Single() ;
+
+            return result;
+        }
+
+
+        public OperationResult<Usuario> SaveUsuario(UsuarioSaveDto usuario)
         {
             var result = new OperationResult<Usuario>();
-           
+
             try
             {
-                _utilServices.Usuario.Add(usuario);
+                _utilServices.Usuario.Add(usuario.MapModel());
                 _utilServices.SaveChanges();
 
                 result.Success = true;
-                result.ResultObject = usuario;
+                result.ResultObject = usuario.MapModel();
             }
             catch (Exception ex)
             {
@@ -296,22 +309,20 @@ namespace PrototipoWebApi_1.Services
         public IEnumerable<TareasDto> GetAllTareas()
         {
 
-                var result = _utilServices.Tareas
-                        .Select(x =>  new TareasDto
-                        {
-                           Codigo = x.Codigo,
-                           Estado = x.Estado,
-                           Fecha = x.FechaCreacion,
-                           Titulo = x.Titulo,
-                           Usuario = x.Usuario.Usr_V_Nombre,
-                           Proyecto = x.Proyecto.Pro_V_Descripcion,
-                           Comentario = x.Comentario
-                        });
-           
+            var result = _utilServices.Tareas
+                    .Select(x => new TareasDto
+                    {
+                        Codigo = x.Codigo,
+                        Estado = x.Estado,
+                        Fecha = x.FechaCreacion,
+                        Titulo = x.Titulo,
+                        Usuario = x.Usuario.Usr_V_Nombre,
+                        Proyecto = x.Proyecto.Pro_V_Descripcion,
+                        Comentario = x.Comentario
+                    });
+
             return result;
         }
-            
-           
 
 
         public  TareasDto GetTareaById(int id)
@@ -332,32 +343,17 @@ namespace PrototipoWebApi_1.Services
         }
 
 
-        private Tareas  MapModel(TareaSaveDto tareas)
-        {
-            return new Tareas
-            {
-                Codigo = tareas.Codigo,
-                Titulo = tareas.Titulo,
-                Estado = tareas.Estado,
-                FechaCreacion = tareas.Fecha,
-                Pro_I_Codigo = tareas.CodigoProyecto,
-                Usr_I_CodigoUsuario = tareas.CodigoUsuario,
-                Comentario = tareas.Comentario,
-            };
-        }
-
         public OperationResult<Tareas> SaveTareas(TareaSaveDto tareas)
         {
             var result = new OperationResult<Tareas>();
-            var model = MapModel(tareas);
 
             try
             {
-                _utilServices.Tareas.Add(model);
+                _utilServices.Tareas.Add(tareas.MapModel());
                 _utilServices.SaveChanges();
 
                 result.Success = true;
-                result.ResultObject = model;
+                result.ResultObject = tareas.MapModel();
             }
             catch (Exception ex)
             {

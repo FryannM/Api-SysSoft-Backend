@@ -25,6 +25,9 @@ namespace PrototipoWebApi_1.Controllers
         [HttpGet("tareas")]
         public IActionResult Get() => Ok(_utilServices.GetAllTareas());
 
+        [HttpGet("{id}")]
+        public IActionResult GetTareaById(int id) => Ok(_utilServices.GetTareaById(id));
+
 
         [HttpPost("tareas")]
         public OperationResult<Tareas> Login([FromBody]TareaSaveDto model)
