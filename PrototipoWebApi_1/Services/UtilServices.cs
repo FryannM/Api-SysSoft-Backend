@@ -32,18 +32,23 @@ namespace PrototipoWebApi_1.Services
         public IEnumerable<Posicion> GetAllPosiciones() => _utilServices.Posicion;
         public async Task<Posicion> GetPosicionById(int id)  => await _utilServices.Posicion.FindAsync(id);
 
-        public async Task<Posicion> SavePosicion(Posicion posicion)
+        public OperationResult<Posicion> SavePosicion(PosicionDtoSave posicion)
         {
+            var result = new OperationResult<Posicion>();
+
             try
             {
-                var result = _utilServices.Posicion.AddAsync(posicion);
-                await _utilServices.SaveChangesAsync();
+                _utilServices.Posicion.Add(posicion.MapModel());
+                _utilServices.SaveChanges();
+
+                result.Success = true;
+                result.ResultObject = posicion.MapModel();
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-            return posicion;
+            return result;
         }
 
 
@@ -77,33 +82,34 @@ namespace PrototipoWebApi_1.Services
         }
 
 
-        public async Task<Team> GetlTeamsById(int id) => await _utilServices.Team.FindAsync(id);
-
-
-        private Team MapModel(TeamSaveDto team)
+        public TeamDto GetlTeamsById(int id)
         {
-            return new Team
-            {
-                Codigo = team.Codigo,
-                Descripcion = team.Descripcion,
-                Estado = team.Estado,
-                CantidadIntegrantes = team.CantidadIntegrantes,
-                Pro_I_Codigo = team.Pro_I_Codigo,
-                FechaCreacion = team.FechaCreacion,
-            };
+            var result = _utilServices.Team
+                       .Select(x => new TeamDto
+                       {
+                           Codigo = x.Codigo,
+                           Descripcion = x.Descripcion,
+                           Proyecto = x.Proyecto.Pro_V_Descripcion,
+                           CantidadIntegrantes = x.CantidadIntegrantes,
+                           Estado = x.Estado,
+                           FechaCreacion = x.FechaCreacion
+                       }).Where(x => x.Codigo == id).Single();
+
+            return result;
         }
+
+     
         public OperationResult<Team> SaveTeam(TeamSaveDto team)
         {
             var result = new OperationResult<Team>();
-            var model = MapModel(team);
-
+            
             try
             {
-                _utilServices.Team.Add(model);
+                _utilServices.Team.Add(team.MapModel());
                 _utilServices.SaveChanges();
 
                 result.Success = true;
-                result.ResultObject = model;
+                result.ResultObject = team.MapModel();
             }
             catch (Exception ex)
             {

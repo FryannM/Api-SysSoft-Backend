@@ -23,7 +23,7 @@ namespace PrototipoWebApi_1.Controllers
         [HttpGet("proyectos")]
         public IActionResult Get() => Ok(_utilServices.GeAllProyectos());
 
-        [HttpGet("proyectos/{id}")]
+        [HttpGet("{id}")]
         public async Task<Proyecto> GetProyectos(int id) => await _utilServices.GetProyectosById(id);
 
 

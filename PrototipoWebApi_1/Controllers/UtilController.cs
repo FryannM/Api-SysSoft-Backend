@@ -25,20 +25,5 @@ namespace PrototipoWebApi_1.Controllers
         [HttpGet("posiciones/{id}")]
         public async Task<Posicion> GetPosiciones(int id) => await _utilServices.GetPosicionById(id);
 
-
-        [HttpPost("posiciones")]
-        public async Task<IActionResult> PostColaborador([FromBody] Posicion posicion)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            await
-             _utilServices.SavePosicion(posicion);
-
-            return CreatedAtAction("GetProyectos", new { id = posicion.Pos_I_Codigo }, posicion);
-        }
-
-
     }
 }

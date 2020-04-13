@@ -16,8 +16,8 @@ namespace PrototipoWebApi_1.Controllers
         public TeamsController(IUtilServices utilServices)
         {
             _utilServices = utilServices;
-
         }
+
         [HttpGet("teams")]
         public IActionResult Get() => Ok(_utilServices.GetlAllTeams());
 

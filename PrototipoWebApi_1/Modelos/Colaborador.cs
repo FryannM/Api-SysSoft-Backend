@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
@@ -41,15 +40,14 @@ namespace PrototipoWebApi_1.Modelos
         [JsonProperty(PropertyName = "FechaNacimiento")]
         public DateTime Col_D_Fecha_Nacimiento { get; set; }
         [JsonProperty(PropertyName = "Departamento")]
-        public int Dep_I_Codigo { get; set; }
 
+
+        public int Dep_I_Codigo { get; set; }
         public virtual Departamento  Departamentos { get; set; }
-        [ForeignKey("Dep_I_Codigo")]
-        public virtual ICollection<Departamento> Departamento { get; set; }
         public int Pos_I_Codigo { get; set; }
-        [ForeignKey("Pos_I_Codigo")]
-        public virtual ICollection<Posicion> Pocisiones { get; set; }
-        public bool Col_B_Estado { get; set; }
+        public virtual Posicion Pocisiones { get; set; }
+
+        public char Col_B_Estado { get; set; }
 
     }
 }

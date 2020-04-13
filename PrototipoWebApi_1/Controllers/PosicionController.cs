@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using PrototipoWebApi_1.Abstract;
+using PrototipoWebApi_1.Dtos;
 using PrototipoWebApi_1.Interfaces;
 using PrototipoWebApi_1.Modelos;
 
@@ -17,35 +17,25 @@ namespace PrototipoWebApi_1.Controllers
     {
         // GET: /<controller>/
 
-        private readonly IUtilServices _posicionesServices;
+        private readonly IUtilServices _utilServices;
         public PosicionController(IUtilServices posicionesServices )
         {
-            _posicionesServices = posicionesServices;
+            _utilServices = posicionesServices;
 
         }
         [HttpGet("posiciones")]
         public IEnumerable<Posicion> GetPosiciones() =>
-            _posicionesServices.GetAllPosiciones();
+            _utilServices.GetAllPosiciones();
 
 
         [HttpGet("{id}")]
         public async Task<Posicion> Getposicion([FromRoute] int id)
-           =>   await  _posicionesServices.GetPosicionById(id);
+           =>   await  _utilServices.GetPosicionById(id);
 
 
-        [HttpPost("posiciones")]
-        public async Task<IActionResult> PostColaborador([FromBody] Posicion posicion)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            await
-             _posicionesServices.SavePosicion(posicion);
-
-            return CreatedAtAction("GetPosiciones", new { id = posicion.Pos_I_Codigo }, posicion);
-        }
-
+        [HttpPost("posicion")]
+        public OperationResult<Posicion> Login([FromBody]PosicionDtoSave model)
+            => _utilServices.SavePosicion(model);
     }
 
 }

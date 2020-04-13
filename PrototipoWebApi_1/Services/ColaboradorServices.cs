@@ -1,4 +1,6 @@
-﻿using PrototipoWebApi_1.Interfaces;
+﻿using PrototipoWebApi_1.Abstract;
+using PrototipoWebApi_1.Dtos;
+using PrototipoWebApi_1.Interfaces;
 using PrototipoWebApi_1.Modelos;
 using PrototipoWebApi_1.Repositorios;
 using System;
@@ -17,19 +19,71 @@ namespace PrototipoWebApi_1.Services
         {
             _colaboradorServices = colaboradorServices;
         }
-        public IEnumerable<Colaborador> GetColaboradors()
+        public IEnumerable<ColaboradoresDto> GetColaboradors()
         {
-            var colaboradores = _colaboradorServices.Colaboradors;
-            return colaboradores;
-            
+            var result = _colaboradorServices.Colaboradors
+                   .Select(x => new ColaboradoresDto
+                   {
+                       Codigo = x.Col_I_Codigo,
+                       Nombre_1 = x.Col_V_Nombre_1,
+                       Nombre_2 = x.Col_V_Nombre_2,
+                       Apellido_1 = x.Col_V_Apellido_1,
+                       Apellido_2 = x.Col_V_Apellido_2,
+                       Cedula = x.Col_V_Cedula,
+                       Sexo = x.Col_C_Sexo,
+                       Col_B_Estado = x.Col_B_Estado,
+                       Fecha_Nacimiento = x.Col_D_Fecha_Nacimiento,
+                       Departamentos = x.Departamentos.Dep_V_Descripcion,
+                       Pocisiones = x.Pocisiones.Pos_V_Descripcion
+                   });
+
+            return result;
+
         }
 
-        public async Task<Colaborador> GetColaboradorAsyncbyId(int id)
+        public OperationResult<Colaborador> SaveColaborador(ColaboradoresSaveDto colaborador)
         {
-            var colaborador = await _colaboradorServices.Colaboradors.FindAsync(id);
-            return colaborador;
-                
+            var result = new OperationResult<Colaborador>();
+
+            try
+            {
+                _colaboradorServices.Colaboradors.Add(colaborador.MapModel());
+                _colaboradorServices.SaveChanges();
+
+                result.Success = true;
+                result.ResultObject = colaborador.MapModel();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return result;
         }
+
+
+
+        public ColaboradoresDto GetRolaboradoresById(int id)
+        {
+            var result = _colaboradorServices.Colaboradors
+                   .Select(x => new ColaboradoresDto
+                   {
+                       Codigo = x.Col_I_Codigo,
+                       Nombre_1 = x.Col_V_Nombre_1,
+                       Nombre_2 = x.Col_V_Nombre_2,
+                       Apellido_1 = x.Col_V_Apellido_1,
+                       Apellido_2 = x.Col_V_Apellido_2,
+                       Cedula = x.Col_V_Cedula,
+                       Col_B_Estado = x.Col_B_Estado,
+                       Sexo= x.Col_C_Sexo,
+                       Fecha_Nacimiento = x.Col_D_Fecha_Nacimiento,
+                       Departamentos = x.Departamentos.Dep_V_Descripcion,
+                       Pocisiones = x.Pocisiones.Pos_V_Descripcion
+                   }).Where(x => x.Codigo == id).Single();
+
+            return result;
+
+        }
+
 
         public async Task<Colaborador> SaveColaborator(Colaborador colaborador)
         {

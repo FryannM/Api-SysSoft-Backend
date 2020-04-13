@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using PrototipoWebApi_1.Abstract;
 using PrototipoWebApi_1.Dtos;
 using PrototipoWebApi_1.Interfaces;
 using PrototipoWebApi_1.Modelos;
@@ -12,7 +13,7 @@ namespace PrototipoWebApi_1.Controllers
     [ApiController]
     public class ColaboradorController : ControllerBase
     {
-       
+
         private readonly IColaboradoreServices _colaboradoreServices;
         private readonly IMapper _mapper;
         public ColaboradorController(
@@ -21,70 +22,18 @@ namespace PrototipoWebApi_1.Controllers
         {
             _colaboradoreServices = colaboradoreServices;
             _mapper = mapper;
-            
+
         }
 
-        // GET: api/Colaboradors
-        [Route("colaboladores")]
-        [HttpGet]
-        public IEnumerable<Colaborador> GetColaboradors()
-        {
-           var result = _colaboradoreServices.GetColaboradors();
-            var model = _mapper.Map<IEnumerable<Colaborador>>(result);
-            return model;
-        }
-        // GET: api/Colaboradors/5
+
+        [HttpGet("colaboradores")]
+        public IActionResult Get() => Ok(_colaboradoreServices.GetColaboradors());
+
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetColaborador([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            var colaborador = await   _colaboradoreServices.GetColaboradorAsyncbyId(id);
-            var model = _mapper.Map<ColaboradorDto>(colaborador);
+        public IActionResult GetClienteById(int id) => Ok(_colaboradoreServices.GetRolaboradoresById(id));
 
-            if (colaborador == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(model);
-        }
-
-       
-
-        // POST: api/Colaboradors
-        [HttpPost ("colaboradores")]
-        public async Task<IActionResult> PostColaborador([FromBody] Colaborador colaborador)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            await
-             _colaboradoreServices.SaveColaborator(colaborador);
-
-            return CreatedAtAction("GetColaborador", new { id = colaborador.Col_I_Codigo }, colaborador);
-        }
-
-        // DELETE: api/Colaboradors/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteColaborador([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var colaborador = await  _colaboradoreServices.DeleteColaborador(id);
-            if (colaborador == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(colaborador);
-        }
-
+        [HttpPost("colaborador")]
+        public OperationResult<Colaborador> Save([FromBody]ColaboradoresSaveDto model)
+             => _colaboradoreServices.SaveColaborador(model);
     }
 }
