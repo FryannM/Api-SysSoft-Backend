@@ -13,6 +13,6 @@ namespace PrototipoWebApi_1.Dtos
         public DateTime Fecha_Nacimiento { get; set; }
         public int Departamentos { get; set; }
         public int Pocisiones { get; set; }
-        public char Col_B_Estado { get; set; }
+        public char Estado { get; set; }
     }
 }

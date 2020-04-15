@@ -6,7 +6,7 @@ namespace PrototipoWebApi_1.Dtos
         public int Codigo { get; set; }
         public string Descripcion { get; set; }
         public int CantidadIntegrantes { get; set; }
-        public int Pro_I_Codigo { get; set; }
+        public int Proyecto { get; set; }
         public DateTime FechaCreacion { get; set; }
         public char Estado { get; set; }
     }

@@ -82,6 +82,8 @@ namespace PrototipoWebApi_1.Services
         }
 
 
+
+
         public TeamDto GetlTeamsById(int id)
         {
             var result = _utilServices.Team
@@ -122,14 +124,22 @@ namespace PrototipoWebApi_1.Services
 
 
 
-
-
         /// <summary>
         ///  Proyectos Mantenimientos
         /// </summary>
         /// <returns></returns>
         public IEnumerable<Proyecto> GeAllProyectos() =>
             _utilServices.Proyectos;
+
+
+        public IEnumerable<ProyectosListDto> Proyectos() =>
+
+          _utilServices.Proyectos.Select(x => new ProyectosListDto
+          {
+              Codigo = x.Pro_I_Codigo,
+              Descripcion = x.Pro_V_Descripcion
+          });
+
 
 
         public async Task<Proyecto> GetProyectosById(int id) => await _utilServices.Proyectos.FindAsync(id);
@@ -185,11 +195,9 @@ namespace PrototipoWebApi_1.Services
             var result = _utilServices.Clientes
                     .Select(x => new ClienteDto
                     {
-                        Codigo = x.Cli_I_Codigo,
-                        Nombre1 = x.Cli_V_Nombre_1,
-                        Nombre2 = x.Cli_V_Nombre_2,
-                        Apellido1 = x.Cli_V_Apellido_1,
-                        Apellido2 = x.Cli_V_Apellido_2,
+                       Codigo = x.Cli_I_Codigo,
+                       Nombre1 =   string.Concat(x.Cli_V_Nombre_1," ", x.Cli_V_Nombre_2),
+                       Apellido1 =  string.Concat(x.Cli_V_Apellido_1," ", x.Cli_V_Apellido_2),
                        CedulaRnc   = x.Cli_V_CedulaRnc,
                        Telefono = x.Cli_V_Telefono,
                        Email  = x.Cli_V_email,
@@ -205,10 +213,8 @@ namespace PrototipoWebApi_1.Services
                     .Select(x => new ClienteDto
                     {
                         Codigo = x.Cli_I_Codigo,
-                        Nombre1 = x.Cli_V_Nombre_1,
-                        Nombre2 = x.Cli_V_Nombre_2,
-                        Apellido1 = x.Cli_V_Apellido_1,
-                        Apellido2 = x.Cli_V_Apellido_2,
+                        Nombre1 = string.Concat(x.Cli_V_Nombre_1, " ", x.Cli_V_Nombre_2),
+                        Apellido1 = string.Concat(x.Cli_V_Apellido_1, " ", x.Cli_V_Apellido_2),
                         CedulaRnc = x.Cli_V_CedulaRnc,
                         Telefono = x.Cli_V_Telefono,
                         Email = x.Cli_V_email,

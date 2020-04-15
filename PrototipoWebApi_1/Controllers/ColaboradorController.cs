@@ -13,18 +13,12 @@ namespace PrototipoWebApi_1.Controllers
     [ApiController]
     public class ColaboradorController : ControllerBase
     {
-
         private readonly IColaboradoreServices _colaboradoreServices;
-        private readonly IMapper _mapper;
         public ColaboradorController(
-            IColaboradoreServices colaboradoreServices,
-            IMapper mapper)
+            IColaboradoreServices colaboradoreServices)
         {
             _colaboradoreServices = colaboradoreServices;
-            _mapper = mapper;
-
         }
-
 
         [HttpGet("colaboradores")]
         public IActionResult Get() => Ok(_colaboradoreServices.GetColaboradors());

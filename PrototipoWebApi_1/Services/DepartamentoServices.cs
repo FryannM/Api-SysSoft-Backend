@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+using PrototipoWebApi_1.Abstract;
+using PrototipoWebApi_1.Dtos;
 using PrototipoWebApi_1.Interfaces;
 using PrototipoWebApi_1.Modelos;
 using PrototipoWebApi_1.Repositorios;
@@ -12,10 +12,10 @@ namespace PrototipoWebApi_1.Services
     {
         RepositoryBase _departamentoServices;
 
-        public DepartamentoServices( RepositoryBase DepartamentoServices)
+        public DepartamentoServices(RepositoryBase DepartamentoServices)
         {
             _departamentoServices = DepartamentoServices;
-        }       
+        }
         public IEnumerable<Departamento> GetDepartamentos()
         {
             var result = _departamentoServices.Departamentos;
@@ -30,22 +30,43 @@ namespace PrototipoWebApi_1.Services
 
         }
 
-        public  async Task<Departamento> SaveDepartamento(Departamento departamento)
+        public OperationResult<Departamento> SaveDepartamento(DepartamentoSaveDto departamento)
         {
+            var result = new OperationResult<Departamento>();
+
             try
             {
+                _departamentoServices.Departamentos.Add(departamento.MapModel());
+                _departamentoServices.SaveChanges();
 
-                var result = _departamentoServices.Departamentos.AddAsync(departamento);
-                _departamentoServices.Entry(departamento).State = EntityState.Detached;
-                await _departamentoServices.SaveChangesAsync();
+                result.Success = true;
+                result.ResultObject = departamento.MapModel();
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-
-            return departamento;
+            return result;
         }
+
+        public OperationResult<Departamento> UpdateDepartamento(DepartamentoSaveDto departamento)
+        {
+            var result = new OperationResult<Departamento>();
+
+            try
+            {
+                _departamentoServices.Departamentos.Update(departamento.MapModel());
+                _departamentoServices.SaveChanges();
+
+                result.Success = true;
+                result.ResultObject = departamento.MapModel();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return result;
         }
     }
+}
 

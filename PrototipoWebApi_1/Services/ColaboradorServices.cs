@@ -25,13 +25,11 @@ namespace PrototipoWebApi_1.Services
                    .Select(x => new ColaboradoresDto
                    {
                        Codigo = x.Col_I_Codigo,
-                       Nombre_1 = x.Col_V_Nombre_1,
-                       Nombre_2 = x.Col_V_Nombre_2,
-                       Apellido_1 = x.Col_V_Apellido_1,
-                       Apellido_2 = x.Col_V_Apellido_2,
+                       Nombres = string.Concat(x.Col_V_Nombre_1," ",x.Col_V_Nombre_2),
+                       Apellidos = string.Concat(x.Col_V_Apellido_1, " ", x.Col_V_Apellido_2),
                        Cedula = x.Col_V_Cedula,
                        Sexo = x.Col_C_Sexo,
-                       Col_B_Estado = x.Col_B_Estado,
+                       Estado = x.Col_B_Estado,
                        Fecha_Nacimiento = x.Col_D_Fecha_Nacimiento,
                        Departamentos = x.Departamentos.Dep_V_Descripcion,
                        Pocisiones = x.Pocisiones.Pos_V_Descripcion
@@ -68,12 +66,10 @@ namespace PrototipoWebApi_1.Services
                    .Select(x => new ColaboradoresDto
                    {
                        Codigo = x.Col_I_Codigo,
-                       Nombre_1 = x.Col_V_Nombre_1,
-                       Nombre_2 = x.Col_V_Nombre_2,
-                       Apellido_1 = x.Col_V_Apellido_1,
-                       Apellido_2 = x.Col_V_Apellido_2,
+                       Nombres = string.Concat(x.Col_V_Nombre_1, " ", x.Col_V_Nombre_2),
+                       Apellidos = string.Concat(x.Col_V_Apellido_1, " ", x.Col_V_Apellido_2),
                        Cedula = x.Col_V_Cedula,
-                       Col_B_Estado = x.Col_B_Estado,
+                       Estado = x.Col_B_Estado,
                        Sexo= x.Col_C_Sexo,
                        Fecha_Nacimiento = x.Col_D_Fecha_Nacimiento,
                        Departamentos = x.Departamentos.Dep_V_Descripcion,

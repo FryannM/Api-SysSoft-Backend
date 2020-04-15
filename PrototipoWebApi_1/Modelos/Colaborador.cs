@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace PrototipoWebApi_1.Modelos
 {
-    public class    Colaborador
+    public class Colaborador
     {
 
         [Key]

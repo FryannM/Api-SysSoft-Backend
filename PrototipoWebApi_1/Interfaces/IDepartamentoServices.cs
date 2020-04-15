@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using PrototipoWebApi_1.Abstract;
+using PrototipoWebApi_1.Dtos;
 using PrototipoWebApi_1.Modelos;
 
 namespace PrototipoWebApi_1.Interfaces
@@ -9,7 +11,8 @@ namespace PrototipoWebApi_1.Interfaces
       
         IEnumerable<Departamento> GetDepartamentos();
         Departamento GetDepartamentosbyId(int id);
-        Task<Departamento> SaveDepartamento(Departamento departamento);
+        OperationResult<Departamento> SaveDepartamento(DepartamentoSaveDto departamento);
+        OperationResult<Departamento> UpdateDepartamento(DepartamentoSaveDto departamento);
 
     }
 }

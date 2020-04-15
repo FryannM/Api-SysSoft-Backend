@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using PrototipoWebApi_1.Abstract;
+using PrototipoWebApi_1.Dtos;
 using PrototipoWebApi_1.Interfaces;
 using PrototipoWebApi_1.Modelos;
 
@@ -26,19 +27,12 @@ namespace PrototipoWebApi_1.Controllers
 
 
 
+        [HttpPost("departamento")]
+        public OperationResult<Departamento> Post([FromBody]DepartamentoSaveDto model)
+           => _departamentoServices.SaveDepartamento(model);
 
-        [HttpPost("departamentos")]
-        public async Task<IActionResult> PostColaborador([FromBody] Departamento departamento)
-        {
-           if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            await
-             _departamentoServices.SaveDepartamento(departamento);
-
-            return CreatedAtAction("DepartamentobyId", new { id = departamento.Dep_I_Codigo }, departamento);
-        }
-
+        [HttpPut("departamento")]   
+        public OperationResult<Departamento> Put([FromBody]DepartamentoSaveDto model)
+        => _departamentoServices.UpdateDepartamento(model);
     }
 }
