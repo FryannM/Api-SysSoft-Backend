@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using PrototipoWebApi_1.Abstract;
 using PrototipoWebApi_1.Dtos;
 using PrototipoWebApi_1.Interfaces;
@@ -67,6 +68,16 @@ namespace PrototipoWebApi_1.Services
             }
             return result;
         }
+
+
+        public IEnumerable<DepartamentoListDto> Departamentos() =>
+
+       _departamentoServices.Departamentos.Select(x => new DepartamentoListDto
+               {
+                   Id = x.Dep_I_Codigo,
+                   Descripcion = x.Dep_V_Descripcion
+               });
+
     }
 }
 

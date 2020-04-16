@@ -15,7 +15,7 @@ namespace PrototipoWebApi_1.Services
         private readonly RepositoryBase _colaboradorServices;
 
 
-        public ColaboradorServices( RepositoryBase colaboradorServices)
+        public ColaboradorServices(RepositoryBase colaboradorServices)
         {
             _colaboradorServices = colaboradorServices;
         }
@@ -24,9 +24,9 @@ namespace PrototipoWebApi_1.Services
             var result = _colaboradorServices.Colaboradors
                    .Select(x => new ColaboradoresDto
                    {
-                       Codigo = x.Col_I_Codigo,
-                       Nombres = string.Concat(x.Col_V_Nombre_1," ",x.Col_V_Nombre_2),
-                       Apellidos = string.Concat(x.Col_V_Apellido_1, " ", x.Col_V_Apellido_2),
+                       Id = x.Col_I_Codigo,
+                       Nombre1 = string.Concat(x.Col_V_Nombre_1, " ", x.Col_V_Nombre_2),
+                       Apellido1 = string.Concat(x.Col_V_Apellido_1, " ", x.Col_V_Apellido_2),
                        Cedula = x.Col_V_Cedula,
                        Sexo = x.Col_C_Sexo,
                        Estado = x.Col_B_Estado,
@@ -58,8 +58,8 @@ namespace PrototipoWebApi_1.Services
             return result;
         }
 
-        
-        
+
+
         public OperationResult<Colaborador> UpdateColaborador(ColaboradoresSaveDto colaborador)
         {
             var result = new OperationResult<Colaborador>();
@@ -86,16 +86,18 @@ namespace PrototipoWebApi_1.Services
             var result = _colaboradorServices.Colaboradors
                    .Select(x => new ColaboradoresDto
                    {
-                       Codigo = x.Col_I_Codigo,
-                       Nombres = string.Concat(x.Col_V_Nombre_1, " ", x.Col_V_Nombre_2),
-                       Apellidos = string.Concat(x.Col_V_Apellido_1, " ", x.Col_V_Apellido_2),
+                       Id = x.Col_I_Codigo,
+                       Nombre1 =  x.Col_V_Nombre_1,
+                       Nombre2 = x.Col_V_Nombre_2,
+                       Apellido1 = x.Col_V_Apellido_1,
+                       Apellido2 = x.Col_V_Apellido_2,
                        Cedula = x.Col_V_Cedula,
                        Estado = x.Col_B_Estado,
-                       Sexo= x.Col_C_Sexo,
+                       Sexo = x.Col_C_Sexo,
                        Fecha_Nacimiento = x.Col_D_Fecha_Nacimiento,
-                       Departamentos = x.Departamentos.Dep_V_Descripcion,
-                       Pocisiones = x.Pocisiones.Pos_V_Descripcion
-                   }).Where(x => x.Codigo == id).Single();
+                       Departamentos = x.Departamentos.Dep_I_Codigo.ToString(),
+                       Pocisiones = x.Pocisiones.Pos_I_Codigo.ToString()
+                   }).Where(x => x.Id == id).Single();
 
             return result;
 
@@ -107,8 +109,8 @@ namespace PrototipoWebApi_1.Services
             try
             {
 
-          var result =  _colaboradorServices.Colaboradors.AddAsync(colaborador);
-             await _colaboradorServices.SaveChangesAsync();
+                var result = _colaboradorServices.Colaboradors.AddAsync(colaborador);
+                await _colaboradorServices.SaveChangesAsync();
             }
             catch (Exception ex)
             {
@@ -116,17 +118,17 @@ namespace PrototipoWebApi_1.Services
             }
 
             return colaborador;
-           
+
         }
 
         public async Task<Colaborador> DeleteColaborador(int id)
         {
             var result = await
                 _colaboradorServices.Colaboradors.FindAsync(id);
-           
+
             _colaboradorServices.Colaboradors.Remove(result);
             await _colaboradorServices.SaveChangesAsync();
             return result;
-        }   
+        }
     }
 }

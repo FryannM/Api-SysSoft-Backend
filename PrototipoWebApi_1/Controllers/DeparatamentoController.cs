@@ -21,7 +21,10 @@ namespace PrototipoWebApi_1.Controllers
         // GET: api/    
         [HttpGet ("departamentos")]
         public IEnumerable<Departamento> Departamentos() => _departamentoServices.GetDepartamentos();
-         
+
+        [HttpGet("departamentos-list")]
+        public IEnumerable<DepartamentoListDto> DepartamentosList() => _departamentoServices.Departamentos();
+
         [HttpGet("{id}")]
         public Departamento DepartamentobyId(int id) => _departamentoServices.GetDepartamentosbyId(id);
 

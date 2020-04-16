@@ -27,6 +27,10 @@ namespace PrototipoWebApi_1.Controllers
         public IEnumerable<Posicion> GetPosiciones() =>
             _utilServices.GetAllPosiciones();
 
+        [HttpGet("posicionesList")]
+        public IEnumerable<CargoListDto> Posiciones() =>
+          _utilServices.Posiciones();
+
 
         [HttpGet("{id}")]
         public async Task<Posicion> Getposicion([FromRoute] int id)

@@ -1,8 +1,10 @@
-﻿namespace PrototipoWebApi_1.Dtos
+﻿using System;
+namespace PrototipoWebApi_1.Dtos
 {
-    public class ProyectosListDto
+    public class CargoListDto
     {
         public int Id { get; set; }
         public string Descripcion { get; set; }
+
     }
 }

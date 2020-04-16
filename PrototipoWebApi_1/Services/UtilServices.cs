@@ -51,6 +51,15 @@ namespace PrototipoWebApi_1.Services
             return result;
         }
 
+        public IEnumerable<CargoListDto> Posiciones() =>
+
+         _utilServices.Posicion.Select(x => new CargoListDto
+         {
+             Id = x.Pos_I_Codigo,
+             Descripcion = x.Pos_V_Descripcion
+         });
+
+
         /// <summary>
         /// Team Services
         /// </summary>
@@ -139,7 +148,7 @@ namespace PrototipoWebApi_1.Services
 
           _utilServices.Proyectos.Select(x => new ProyectosListDto
           {
-              Codigo = x.Pro_I_Codigo,
+              Id = x.Pro_I_Codigo,
               Descripcion = x.Pro_V_Descripcion
           });
 
@@ -188,10 +197,8 @@ namespace PrototipoWebApi_1.Services
         }
 
 
-
         public async Task<Proyecto> Update(Proyecto proyectos)
         {
-
             try
             {
                 _utilServices.Proyectos.Update(proyectos);
@@ -242,8 +249,7 @@ namespace PrototipoWebApi_1.Services
                         CedulaRnc = x.Cli_V_CedulaRnc,
                         Telefono = x.Cli_V_Telefono,
                         Email = x.Cli_V_email,
-                        Proyecto = x.Proyecto.Pro_V_Descripcion,
-                        ProyectoCodigo = x.Proyecto.Pro_I_Codigo,
+                        Proyecto = x.Proyecto.Pro_I_Codigo.ToString(),
                         Estado = x.Estado,
                     }).Where(x => x.Id == id).Single();
 
@@ -323,7 +329,7 @@ namespace PrototipoWebApi_1.Services
                         Nombre = x.Usr_V_Nombre,
                         NombreUsuario = x.Usr_V_NombreUsuario,
                         PassWord = x.Usr_V_PassWord,
-                        Cargo = x.Cargo.Pos_V_Descripcion,
+                        Cargo = x.Cargo.Pos_I_Codigo.ToString(),
                         Email = x.Usr_V_Email,
                         Estado = x.Estado
                     }).Where(x => x.Id == id).Single();

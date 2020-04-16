@@ -13,6 +13,7 @@ namespace PrototipoWebApi_1.Interfaces
         Departamento GetDepartamentosbyId(int id);
         OperationResult<Departamento> SaveDepartamento(DepartamentoSaveDto departamento);
         OperationResult<Departamento> UpdateDepartamento(DepartamentoSaveDto departamento);
+        IEnumerable<DepartamentoListDto> Departamentos();
 
     }
 }
