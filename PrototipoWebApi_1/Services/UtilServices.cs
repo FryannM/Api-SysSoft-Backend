@@ -30,7 +30,7 @@ namespace PrototipoWebApi_1.Services
         /// </summary>
         /// <returns></returns>
         public IEnumerable<Posicion> GetAllPosiciones() => _utilServices.Posicion;
-        public async Task<Posicion> GetPosicionById(int id)  => await _utilServices.Posicion.FindAsync(id);
+        public async Task<Posicion> GetPosicionById(int id) => await _utilServices.Posicion.FindAsync(id);
 
         public OperationResult<Posicion> SavePosicion(PosicionDtoSave posicion)
         {
@@ -50,15 +50,6 @@ namespace PrototipoWebApi_1.Services
             }
             return result;
         }
-
-
-
-
-
-
-
-
-
 
         /// <summary>
         /// Team Services
@@ -100,11 +91,11 @@ namespace PrototipoWebApi_1.Services
             return result;
         }
 
-     
+
         public OperationResult<Team> SaveTeam(TeamSaveDto team)
         {
             var result = new OperationResult<Team>();
-            
+
             try
             {
                 _utilServices.Team.Add(team.MapModel());
@@ -119,10 +110,6 @@ namespace PrototipoWebApi_1.Services
             }
             return result;
         }
-
-
-
-
 
         /// <summary>
         ///  Proyectos Mantenimientos
@@ -143,13 +130,13 @@ namespace PrototipoWebApi_1.Services
 
 
         public async Task<Proyecto> GetProyectosById(int id) => await _utilServices.Proyectos.FindAsync(id);
-      
 
-        public  async Task<Proyecto> SaveProyecto(Proyecto proyecto)
+
+        public async Task<Proyecto> SaveProyecto(Proyecto proyecto)
         {
             try
             {
-               var result = _utilServices.Proyectos.AddAsync(proyecto);
+                var result = _utilServices.Proyectos.AddAsync(proyecto);
                 await _utilServices.SaveChangesAsync();
             }
             catch (Exception ex)
@@ -164,7 +151,7 @@ namespace PrototipoWebApi_1.Services
 
             try
             {
-                 _utilServices.Proyectos.Update(proyectos);
+                _utilServices.Proyectos.Update(proyectos);
                 _utilServices.Entry(proyectos).State = EntityState.Modified;
 
                 await _utilServices.SaveChangesAsync();
@@ -177,37 +164,11 @@ namespace PrototipoWebApi_1.Services
         }
 
 
-
-
-
-
-
-
-
-
-
         /// <summary>
         /// Cliente Mantenimientos
         /// </summary>
         /// <returns></returns>
         public IEnumerable<ClienteDto> GetAllClientes()
-        {
-            var result = _utilServices.Clientes
-                    .Select(x => new ClienteDto
-                    {
-                       Codigo = x.Cli_I_Codigo,
-                       Nombre1 =   string.Concat(x.Cli_V_Nombre_1," ", x.Cli_V_Nombre_2),
-                       Apellido1 =  string.Concat(x.Cli_V_Apellido_1," ", x.Cli_V_Apellido_2),
-                       CedulaRnc   = x.Cli_V_CedulaRnc,
-                       Telefono = x.Cli_V_Telefono,
-                       Email  = x.Cli_V_email,
-                       Proyecto = x.Proyecto.Pro_V_Descripcion,
-                    });
-
-            return result;
-        }
-
-        public   ClienteDto GetClienteById(int id)
         {
             var result = _utilServices.Clientes
                     .Select(x => new ClienteDto
@@ -219,12 +180,52 @@ namespace PrototipoWebApi_1.Services
                         Telefono = x.Cli_V_Telefono,
                         Email = x.Cli_V_email,
                         Proyecto = x.Proyecto.Pro_V_Descripcion,
-                    }).Where(x => x.Codigo == id).Single() ;
+                        Estado = x.Estado
+                    });
 
             return result;
         }
 
-     
+        public ClienteDto GetClienteById(int id)
+        {
+            var result = _utilServices.Clientes
+                    .Select(x => new ClienteDto
+                    {
+                        Codigo = x.Cli_I_Codigo,
+                        Nombre1 = string.Concat(x.Cli_V_Nombre_1, " ", x.Cli_V_Nombre_2),
+                        Apellido1 = string.Concat(x.Cli_V_Apellido_1, " ", x.Cli_V_Apellido_2),
+                        CedulaRnc = x.Cli_V_CedulaRnc,
+                        Telefono = x.Cli_V_Telefono,
+                        Email = x.Cli_V_email,
+                        Proyecto = x.Proyecto.Pro_V_Descripcion,
+                        Estado = x.Estado,
+                    }).Where(x => x.Codigo == id).Single();
+
+            return result;
+        }
+
+
+
+        public OperationResult<Cliente> UpdateCliente(ClienteDtoSave cliente)
+        {
+            var result = new OperationResult<Cliente>();
+
+            try
+            {
+                _utilServices.Update(cliente.MapModel());
+                _utilServices.SaveChanges();
+
+                result.Success = true;
+                result.ResultObject = cliente.MapModel();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return result;
+        }
+
+
 
         public OperationResult<Cliente> SaveClientes(ClienteDtoSave cliente)
         {
@@ -260,13 +261,14 @@ namespace PrototipoWebApi_1.Services
                         PassWord = x.Usr_V_PassWord,
                         Cargo = x.Cargo.Pos_V_Descripcion,
                         Email = x.Usr_V_Email,
+                        Estado = x.Estado
                     });
 
             return result;
         }
 
 
-        public  UsuarioDto  GetUsuarioById(int id)
+        public UsuarioDto GetUsuarioById(int id)
         {
             var result = _utilServices.Usuario
                     .Select(x => new UsuarioDto
@@ -277,7 +279,8 @@ namespace PrototipoWebApi_1.Services
                         PassWord = x.Usr_V_PassWord,
                         Cargo = x.Cargo.Pos_V_Descripcion,
                         Email = x.Usr_V_Email,
-                    }).Where(x => x.Codigo == id).Single() ;
+                        Estado = x.Estado
+                    }).Where(x => x.Codigo == id).Single();
 
             return result;
         }
@@ -299,8 +302,35 @@ namespace PrototipoWebApi_1.Services
             {
                 throw ex;
             }
-            return  result;
+            return result;
         }
+
+        public OperationResult<Usuario> UpdateUsuario(UsuarioSaveDto usuario)
+        {
+            var result = new OperationResult<Usuario>();
+
+            try
+            {
+                _utilServices.Usuario.Update(usuario.MapModel());
+                _utilServices.SaveChanges();
+
+                result.Success = true;
+                result.ResultObject = usuario.MapModel();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return result;
+        }
+
+
+
+
+
+
+
+
 
         public OperationResult<Usuario> Login(Login login)
         {
@@ -373,7 +403,5 @@ namespace PrototipoWebApi_1.Services
             }
             return result;
         }
-
-      
     }
 }

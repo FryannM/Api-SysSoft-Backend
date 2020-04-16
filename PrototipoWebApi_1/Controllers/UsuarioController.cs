@@ -30,6 +30,10 @@ namespace PrototipoWebApi_1.Controllers
         public OperationResult<Usuario> Post([FromBody]UsuarioSaveDto model)
            => _utilServices.SaveUsuario(model);
 
+        [HttpPut("usuario")]
+        public OperationResult<Usuario> Put([FromBody]UsuarioSaveDto model)
+        => _utilServices.UpdateUsuario(model);
+
         // PUT api/values/5
         [HttpPost("login")]
         public  OperationResult <Usuario> Login([FromBody]Login login)  =>  _utilServices.Login(login);

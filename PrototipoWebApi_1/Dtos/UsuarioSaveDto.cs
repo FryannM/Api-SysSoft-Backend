@@ -9,5 +9,7 @@ namespace PrototipoWebApi_1.Dtos
         public string PassWord { get; set; }
         public string Email { get; set; }
         public int Cargo { get; set; }
+        public char Estado { get; set; }
+
     }
 }

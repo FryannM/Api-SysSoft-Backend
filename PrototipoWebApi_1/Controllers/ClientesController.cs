@@ -26,5 +26,9 @@ namespace PrototipoWebApi_1.Controllers
         [HttpPost("clientes")]
         public OperationResult<Cliente> Save([FromBody]ClienteDtoSave model)
             => _utilServices.SaveClientes(model);
+
+        [HttpPut("clientes")]
+        public OperationResult<Cliente> Put([FromBody]ClienteDtoSave model)
+           => _utilServices.UpdateCliente(model);
     }
 }

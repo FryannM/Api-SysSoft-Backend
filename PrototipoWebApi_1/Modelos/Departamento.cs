@@ -15,10 +15,5 @@ namespace PrototipoWebApi_1.Modelos
         public virtual string Dep_V_Descripcion { get; set; }
         public virtual string Nombre { get; set; }
         public virtual char Estado { get; set; }
-
-
-
-
-
     }
 }

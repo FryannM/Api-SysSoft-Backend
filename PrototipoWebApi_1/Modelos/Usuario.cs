@@ -21,6 +21,8 @@ namespace PrototipoWebApi_1.Modelos
         [JsonProperty(PropertyName = "Cargo")]
         public int Pos_I_Codigo { get; set; }
         public virtual Posicion Cargo { get; set; }
+        public char Estado { get; set; }
+
 
     }
 }

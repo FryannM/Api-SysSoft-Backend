@@ -11,5 +11,7 @@ namespace PrototipoWebApi_1.Dtos
         public string PassWord { get; set; }
         public string Email { get; set; }
         public string Cargo { get; set; }
+        public char Estado { get; set; }
+
     }
 }

@@ -35,5 +35,7 @@ namespace PrototipoWebApi_1.Modelos
 
         public virtual Proyecto Proyecto { get; set; }
 
+        public char Estado { get; set; }
+
     }
 }

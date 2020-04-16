@@ -41,6 +41,9 @@ namespace PrototipoWebApi_1.Configurations
 
               builder.HasOne(x => x.Proyecto);
 
+            builder.Property(x => x.Estado)
+               .HasColumnName("Estado");
+
         }
     }
 }

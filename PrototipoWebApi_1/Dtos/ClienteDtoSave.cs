@@ -20,6 +20,7 @@ namespace PrototipoWebApi_1.Dtos
 
         public string Telefono { get; set; }
 
+        public char Estado { get; set; }
         public int Proyecto { get; set; }
     }
 }
