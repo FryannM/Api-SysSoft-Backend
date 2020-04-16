@@ -1,5 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using PrototipoWebApi_1.Abstract;
+using PrototipoWebApi_1.Dtos;
 using PrototipoWebApi_1.Interfaces;
 using PrototipoWebApi_1.Modelos;
 
@@ -29,38 +31,12 @@ namespace PrototipoWebApi_1.Controllers
         [HttpGet("{id}")]
         public async Task<Proyecto> GetProyectos(int id) => await _utilServices.GetProyectosById(id);
 
+        [HttpPost("proyecto")]
+        public OperationResult<Proyecto> Post([FromBody]ProyectoSafeDto model)
+                => _utilServices.SaveProyecto(model);
 
-        [HttpPost("proyectos")]
-        public async Task<IActionResult> Post([FromBody] Proyecto model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            await
-             _utilServices.SaveProyecto(model);
-
-            return CreatedAtAction("GetProyectos", new { id = model.Pro_I_Codigo }, model);
-        }
-
-        // PUT api/values/5
-        [HttpPut("proyectos")]
-        public async Task<IActionResult> Put([FromBody]Proyecto model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            await
-             _utilServices.Update(model);
-
-            return  CreatedAtAction("GetProyectos", new { id = model.Pro_I_Codigo }, model);
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        [HttpPut("proyecto")]
+        public OperationResult<Proyecto> Put([FromBody]ProyectoSafeDto model)
+        => _utilServices.UpdateProyecto(model);
     }
 }

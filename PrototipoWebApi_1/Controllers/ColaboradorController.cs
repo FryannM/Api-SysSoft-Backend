@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using PrototipoWebApi_1.Abstract;
 using PrototipoWebApi_1.Dtos;
 using PrototipoWebApi_1.Interfaces;
@@ -29,5 +26,10 @@ namespace PrototipoWebApi_1.Controllers
         [HttpPost("colaborador")]
         public OperationResult<Colaborador> Save([FromBody]ColaboradoresSaveDto model)
              => _colaboradoreServices.SaveColaborador(model);
+
+
+        [HttpPut("colaborador")]
+        public OperationResult<Colaborador> Put([FromBody]ColaboradoresSaveDto model)
+           => _colaboradoreServices.UpdateColaborador(model);
     }
 }

@@ -72,9 +72,6 @@ namespace PrototipoWebApi_1.Services
             return result;
         }
 
-
-
-
         public TeamDto GetlTeamsById(int id)
         {
             var result = _utilServices.Team
@@ -111,6 +108,25 @@ namespace PrototipoWebApi_1.Services
             return result;
         }
 
+        public OperationResult<Team> UpdateTeam(TeamSaveDto team)
+        {
+            var result = new OperationResult<Team>();
+
+            try
+            {
+                _utilServices.Team.Update(team.MapModel());
+                _utilServices.SaveChanges();
+
+                result.Success = true;
+                result.ResultObject = team.MapModel();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return result;
+        }
+
         /// <summary>
         ///  Proyectos Mantenimientos
         /// </summary>
@@ -132,19 +148,46 @@ namespace PrototipoWebApi_1.Services
         public async Task<Proyecto> GetProyectosById(int id) => await _utilServices.Proyectos.FindAsync(id);
 
 
-        public async Task<Proyecto> SaveProyecto(Proyecto proyecto)
+
+        public OperationResult<Proyecto> SaveProyecto(ProyectoSafeDto proyecto)
         {
+            var result = new OperationResult<Proyecto>();
+
             try
             {
-                var result = _utilServices.Proyectos.AddAsync(proyecto);
-                await _utilServices.SaveChangesAsync();
+                _utilServices.Proyectos.Add(proyecto.MapModel());
+                _utilServices.SaveChanges();
+
+                result.Success = true;
+                result.ResultObject = proyecto.MapModel();
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-            return proyecto;
+            return result;
         }
+
+        public OperationResult<Proyecto> UpdateProyecto(ProyectoSafeDto proyecto)
+        {
+            var result = new OperationResult<Proyecto>();
+
+            try
+            {
+                _utilServices.Proyectos.Update(proyecto.MapModel());
+                _utilServices.SaveChanges();
+
+                result.Success = true;
+                result.ResultObject = proyecto.MapModel();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return result;
+        }
+
+
 
         public async Task<Proyecto> Update(Proyecto proyectos)
         {
@@ -396,6 +439,25 @@ namespace PrototipoWebApi_1.Services
 
                 result.Success = true;
                 result.ResultObject = tareas.MapModel();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return result;
+        }
+
+        public OperationResult<Tareas> UpdateTareas(TareaSaveDto tarea)
+        {
+            var result = new OperationResult<Tareas>();
+
+            try
+            {
+                _utilServices.Tareas.Update(tarea.MapModel());
+                _utilServices.SaveChanges();
+
+                result.Success = true;
+                result.ResultObject = tarea.MapModel();
             }
             catch (Exception ex)
             {

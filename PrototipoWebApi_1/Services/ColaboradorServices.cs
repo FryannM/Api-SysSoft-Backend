@@ -58,6 +58,27 @@ namespace PrototipoWebApi_1.Services
             return result;
         }
 
+        
+        
+        public OperationResult<Colaborador> UpdateColaborador(ColaboradoresSaveDto colaborador)
+        {
+            var result = new OperationResult<Colaborador>();
+
+            try
+            {
+                _colaboradorServices.Colaboradors.Update(colaborador.MapModel());
+                _colaboradorServices.SaveChanges();
+
+                result.Success = true;
+                result.ResultObject = colaborador.MapModel();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return result;
+        }
+
 
 
         public ColaboradoresDto GetRolaboradoresById(int id)

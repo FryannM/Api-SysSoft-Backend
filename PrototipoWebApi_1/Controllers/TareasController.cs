@@ -30,8 +30,12 @@ namespace PrototipoWebApi_1.Controllers
 
 
         [HttpPost("tareas")]
-        public OperationResult<Tareas> Login([FromBody]TareaSaveDto model)
+        public OperationResult<Tareas> Post([FromBody]TareaSaveDto model)
             => _utilServices.SaveTareas(model);
+
+        [HttpPut("tareas")]
+        public OperationResult<Tareas> Put([FromBody]TareaSaveDto model)
+         => _utilServices.UpdateTareas(model);
 
     }
 }
