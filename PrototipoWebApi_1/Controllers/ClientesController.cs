@@ -23,11 +23,11 @@ namespace PrototipoWebApi_1.Controllers
         [HttpGet("{id}")]
         public IActionResult GetClienteById(int id) => Ok(_utilServices.GetClienteById(id));
 
-        [HttpPost("clientes")]
+        [HttpPost("cliente")]
         public OperationResult<Cliente> Save([FromBody]ClienteDtoSave model)
             => _utilServices.SaveClientes(model);
 
-        [HttpPut("clientes")]
+        [HttpPut("cliente")]
         public OperationResult<Cliente> Put([FromBody]ClienteDtoSave model)
            => _utilServices.UpdateCliente(model);
     }

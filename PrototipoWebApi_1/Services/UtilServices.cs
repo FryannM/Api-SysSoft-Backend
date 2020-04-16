@@ -216,7 +216,7 @@ namespace PrototipoWebApi_1.Services
             var result = _utilServices.Clientes
                     .Select(x => new ClienteDto
                     {
-                        Codigo = x.Cli_I_Codigo,
+                        Id = x.Cli_I_Codigo,
                         Nombre1 = string.Concat(x.Cli_V_Nombre_1, " ", x.Cli_V_Nombre_2),
                         Apellido1 = string.Concat(x.Cli_V_Apellido_1, " ", x.Cli_V_Apellido_2),
                         CedulaRnc = x.Cli_V_CedulaRnc,
@@ -234,15 +234,18 @@ namespace PrototipoWebApi_1.Services
             var result = _utilServices.Clientes
                     .Select(x => new ClienteDto
                     {
-                        Codigo = x.Cli_I_Codigo,
-                        Nombre1 = string.Concat(x.Cli_V_Nombre_1, " ", x.Cli_V_Nombre_2),
-                        Apellido1 = string.Concat(x.Cli_V_Apellido_1, " ", x.Cli_V_Apellido_2),
+                        Id = x.Cli_I_Codigo,
+                        Nombre1 = x.Cli_V_Nombre_1,
+                        Nombre2 = x.Cli_V_Nombre_2,
+                        Apellido1 = x.Cli_V_Apellido_1,
+                        Apellido2 = x.Cli_V_Apellido_2,
                         CedulaRnc = x.Cli_V_CedulaRnc,
                         Telefono = x.Cli_V_Telefono,
                         Email = x.Cli_V_email,
                         Proyecto = x.Proyecto.Pro_V_Descripcion,
+                        ProyectoCodigo = x.Proyecto.Pro_I_Codigo,
                         Estado = x.Estado,
-                    }).Where(x => x.Codigo == id).Single();
+                    }).Where(x => x.Id == id).Single();
 
             return result;
         }
@@ -298,7 +301,7 @@ namespace PrototipoWebApi_1.Services
             var result = _utilServices.Usuario
                     .Select(x => new UsuarioDto
                     {
-                        Codigo = x.Usr_I_CodigoUsuario,
+                        Id = x.Usr_I_CodigoUsuario,
                         Nombre = x.Usr_V_Nombre,
                         NombreUsuario = x.Usr_V_NombreUsuario,
                         PassWord = x.Usr_V_PassWord,
@@ -316,14 +319,14 @@ namespace PrototipoWebApi_1.Services
             var result = _utilServices.Usuario
                     .Select(x => new UsuarioDto
                     {
-                        Codigo = x.Usr_I_CodigoUsuario,
+                        Id = x.Usr_I_CodigoUsuario,
                         Nombre = x.Usr_V_Nombre,
                         NombreUsuario = x.Usr_V_NombreUsuario,
                         PassWord = x.Usr_V_PassWord,
                         Cargo = x.Cargo.Pos_V_Descripcion,
                         Email = x.Usr_V_Email,
                         Estado = x.Estado
-                    }).Where(x => x.Codigo == id).Single();
+                    }).Where(x => x.Id == id).Single();
 
             return result;
         }
