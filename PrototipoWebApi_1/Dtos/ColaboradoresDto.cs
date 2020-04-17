@@ -14,7 +14,7 @@ namespace PrototipoWebApi_1.Dtos
 
         public char Sexo { get; set; }
         public DateTime Fecha_Nacimiento { get; set; }
-        public string Departamentos { get; set; }
+        public string Departamento  { get; set; }
         public string Pocisiones { get; set; }
         public char Estado { get; set; }
 

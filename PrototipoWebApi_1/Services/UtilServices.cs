@@ -140,8 +140,28 @@ namespace PrototipoWebApi_1.Services
         ///  Proyectos Mantenimientos
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Proyecto> GeAllProyectos() =>
-            _utilServices.Proyectos;
+        public IEnumerable<ProyectoDto> GeAllProyectos() =>
+            _utilServices.Proyectos.Select( x =>  new ProyectoDto
+            {
+                 Id = x.Pro_I_Codigo,
+                 Descripcion = x.Pro_V_Descripcion,
+                 Estado = x.Estado,
+                 FechaFin= x.Fecha_Fin,
+                 FechaInicio = x.Fecha_Inicio
+            });
+
+
+        public ProyectoDto GetProyectos( int id ) =>
+          _utilServices.Proyectos.Select( x =>  new ProyectoDto
+          {
+              Id = x.Pro_I_Codigo,
+              Descripcion = x.Pro_V_Descripcion,
+              Estado = x.Estado,
+              FechaFin =  x.Fecha_Fin,
+             FechaInicio = x.Fecha_Inicio
+
+          }).Where ( x => x.Id == id).Single();
+
 
 
         public IEnumerable<ProyectosListDto> Proyectos() =>
@@ -375,13 +395,6 @@ namespace PrototipoWebApi_1.Services
             }
             return result;
         }
-
-
-
-
-
-
-
 
 
         public OperationResult<Usuario> Login(Login login)

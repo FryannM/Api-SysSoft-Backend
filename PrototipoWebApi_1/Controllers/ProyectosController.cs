@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PrototipoWebApi_1.Abstract;
 using PrototipoWebApi_1.Dtos;
@@ -28,8 +29,11 @@ namespace PrototipoWebApi_1.Controllers
         [HttpGet("proyectos-list")]
         public IActionResult Proyectos() => Ok(_utilServices.Proyectos());
 
+
         [HttpGet("{id}")]
-        public async Task<Proyecto> GetProyectos(int id) => await _utilServices.GetProyectosById(id);
+        public IActionResult GetProyectosbyId(int id)
+            => Ok(_utilServices.GetProyectos(id));
+
 
         [HttpPost("proyecto")]
         public OperationResult<Proyecto> Post([FromBody]ProyectoSafeDto model)

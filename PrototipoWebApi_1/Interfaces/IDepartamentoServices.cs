@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
 using PrototipoWebApi_1.Abstract;
 using PrototipoWebApi_1.Dtos;
 using PrototipoWebApi_1.Modelos;

@@ -31,6 +31,16 @@ namespace PrototipoWebApi_1.Services
 
         }
 
+        //public IEnumerable<DepartamentoDto> Departamentos() =>
+
+        //    _departamentoServices.Departamentos.Select(x => new DepartamentoDto
+        //    {
+        //        Id = x.Dep_I_Codigo,
+        //        Descripcion = x.Dep_V_Descripcion,
+        //        FechaInicio = x.
+
+        //    });
+
         public OperationResult<Departamento> SaveDepartamento(DepartamentoSaveDto departamento)
         {
             var result = new OperationResult<Departamento>();

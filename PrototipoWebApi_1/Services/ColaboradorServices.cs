@@ -31,7 +31,7 @@ namespace PrototipoWebApi_1.Services
                        Sexo = x.Col_C_Sexo,
                        Estado = x.Col_B_Estado,
                        Fecha_Nacimiento = x.Col_D_Fecha_Nacimiento,
-                       Departamentos = x.Departamentos.Dep_V_Descripcion,
+                       Departamento = x.Departamentos.Dep_V_Descripcion,
                        Pocisiones = x.Pocisiones.Pos_V_Descripcion
                    });
 
@@ -95,7 +95,7 @@ namespace PrototipoWebApi_1.Services
                        Estado = x.Col_B_Estado,
                        Sexo = x.Col_C_Sexo,
                        Fecha_Nacimiento = x.Col_D_Fecha_Nacimiento,
-                       Departamentos = x.Departamentos.Dep_I_Codigo.ToString(),
+                       Departamento = x.Departamentos.Dep_I_Codigo.ToString(),
                        Pocisiones = x.Pocisiones.Pos_I_Codigo.ToString()
                    }).Where(x => x.Id == id).Single();
 
