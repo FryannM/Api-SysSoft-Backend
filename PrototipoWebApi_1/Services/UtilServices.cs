@@ -70,7 +70,7 @@ namespace PrototipoWebApi_1.Services
             var result = _utilServices.Team
                     .Select(x => new TeamDto
                     {
-                        Codigo = x.Codigo,
+                        Id = x.Codigo,
                         Descripcion = x.Descripcion,
                         Proyecto = x.Proyecto.Pro_V_Descripcion,
                         CantidadIntegrantes = x.CantidadIntegrantes,
@@ -86,13 +86,13 @@ namespace PrototipoWebApi_1.Services
             var result = _utilServices.Team
                        .Select(x => new TeamDto
                        {
-                           Codigo = x.Codigo,
+                           Id = x.Codigo,
                            Descripcion = x.Descripcion,
-                           Proyecto = x.Proyecto.Pro_V_Descripcion,
+                           Proyecto = x.Proyecto.Pro_I_Codigo.ToString(),
                            CantidadIntegrantes = x.CantidadIntegrantes,
                            Estado = x.Estado,
                            FechaCreacion = x.FechaCreacion
-                       }).Where(x => x.Codigo == id).Single();
+                       }).Where(x => x.Id == id).Single();
 
             return result;
         }
@@ -419,7 +419,7 @@ namespace PrototipoWebApi_1.Services
             var result = _utilServices.Tareas
                     .Select(x => new TareasDto
                     {
-                        Codigo = x.Codigo,
+                        Id = x.Codigo,
                         Estado = x.Estado,
                         Fecha = x.FechaCreacion,
                         Titulo = x.Titulo,
@@ -437,14 +437,14 @@ namespace PrototipoWebApi_1.Services
             var result =   _utilServices.Tareas
                         .Select(x => new TareasDto
                         {
-                            Codigo = x.Codigo,
+                            Id = x.Codigo,
                             Estado = x.Estado,
                             Fecha = x.FechaCreacion,
                             Titulo = x.Titulo,
                             Usuario = x.Usuario.Usr_V_Nombre,
                             Proyecto = x.Proyecto.Pro_V_Descripcion,
                             Comentario = x.Comentario
-                        }).Where(x => x.Codigo == id).Single();
+                        }).Where(x => x.Id == id).Single();
 
             return   result;
         }

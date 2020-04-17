@@ -3,7 +3,7 @@ namespace PrototipoWebApi_1.Dtos
 {
     public class TeamSaveDto
     {
-        public int Codigo { get; set; }
+        public int Id { get; set; }
         public string Descripcion { get; set; }
         public int CantidadIntegrantes { get; set; }
         public int Proyecto { get; set; }
