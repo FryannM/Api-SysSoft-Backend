@@ -66,6 +66,8 @@ namespace PrototipoWebApi_1.Services
             }
             catch (Exception ex)
             {
+                _utilServices.Errores.Add(ex.SaveModel());
+                _utilServices.SaveChanges();
                 throw ex;
             }
             return result;
@@ -103,16 +105,27 @@ namespace PrototipoWebApi_1.Services
 
         public TeamDto GetlTeamsById(int id)
         {
-            var result = _utilServices.Team
-                       .Select(x => new TeamDto
-                       {
-                           Id = x.Codigo,
-                           Descripcion = x.Descripcion,
-                           Proyecto = x.Proyecto.Pro_I_Codigo.ToString(),
-                           CantidadIntegrantes = x.CantidadIntegrantes,
-                           Estado = x.Estado,
-                           FechaCreacion = x.FechaCreacion
-                       }).Where(x => x.Id == id).Single();
+            var result = new TeamDto();
+            try
+            {
+                result = _utilServices.Team
+                      .Select(x => new TeamDto
+                      {
+                          Id = x.Codigo,
+                          Descripcion = x.Descripcion,
+                          Proyecto = x.Proyecto.Pro_I_Codigo.ToString(),
+                          CantidadIntegrantes = x.CantidadIntegrantes,
+                          Estado = x.Estado,
+                          FechaCreacion = x.FechaCreacion
+                      }).Where(x => x.Id == id).Single();
+            }
+            catch (Exception ex)
+            {
+                _utilServices.Errores.Add(ex.SaveModel());
+                _utilServices.SaveChanges();
+                throw ex;
+            }
+            
 
             return result;
         }
@@ -132,6 +145,8 @@ namespace PrototipoWebApi_1.Services
             }
             catch (Exception ex)
             {
+                _utilServices.Errores.Add(ex.SaveModel());
+                _utilServices.SaveChanges();
                 throw ex;
             }
             return result;
@@ -151,6 +166,8 @@ namespace PrototipoWebApi_1.Services
             }
             catch (Exception ex)
             {
+                _utilServices.Errores.Add(ex.SaveModel());
+                _utilServices.SaveChanges();
                 throw ex;
             }
             return result;
@@ -171,16 +188,33 @@ namespace PrototipoWebApi_1.Services
             });
 
 
-        public ProyectoDto GetProyectos( int id ) =>
-          _utilServices.Proyectos.Select( x =>  new ProyectoDto
-          {
-              Id = x.Pro_I_Codigo,
-              Descripcion = x.Pro_V_Descripcion,
-              Estado = x.Estado,
-              FechaFin =  x.Fecha_Fin,
-             FechaInicio = x.Fecha_Inicio
+        public ProyectoDto GetProyectos( int id)
+        {
+            var result = new ProyectoDto();
+            try
+            {
+                _utilServices.Proyectos.Select(x => new ProyectoDto
+                {
+                    Id = x.Pro_I_Codigo,
+                    Descripcion = x.Pro_V_Descripcion,
+                    Estado = x.Estado,
+                    FechaFin = x.Fecha_Fin,
+                    FechaInicio = x.Fecha_Inicio
 
-          }).Where ( x => x.Id == id).Single();
+                }).Where(x => x.Id == id).Single();
+            }
+            catch (Exception ex)
+            {
+                _utilServices.Errores.Add(ex.SaveModel());
+                _utilServices.SaveChanges();
+                throw ex;
+            }
+            return result;
+            
+        }
+
+             
+          
 
 
 
@@ -194,8 +228,8 @@ namespace PrototipoWebApi_1.Services
 
 
 
-        public async Task<Proyecto> GetProyectosById(int id) => await _utilServices.Proyectos.FindAsync(id);
-
+        public async Task<Proyecto> GetProyectosById(int id)
+            => await _utilServices.Proyectos.FindAsync(id);
 
 
         public OperationResult<Proyecto> SaveProyecto(ProyectoSafeDto proyecto)
@@ -212,6 +246,8 @@ namespace PrototipoWebApi_1.Services
             }
             catch (Exception ex)
             {
+                _utilServices.Errores.Add(ex.SaveModel());
+                _utilServices.SaveChanges();
                 throw ex;
             }
             return result;
@@ -231,6 +267,8 @@ namespace PrototipoWebApi_1.Services
             }
             catch (Exception ex)
             {
+                _utilServices.Errores.Add(ex.SaveModel());
+                _utilServices.SaveChanges();
                 throw ex;
             }
             return result;
@@ -248,6 +286,8 @@ namespace PrototipoWebApi_1.Services
             }
             catch (Exception ex)
             {
+                _utilServices.Errores.Add(ex.SaveModel());
+                _utilServices.SaveChanges();
                 throw ex;
             }
             return proyectos;
@@ -258,6 +298,7 @@ namespace PrototipoWebApi_1.Services
         /// Cliente Mantenimientos
         /// </summary>
         /// <returns></returns>
+        /// 
         public IEnumerable<ClienteDto> GetAllClientes()
         {
             var result = _utilServices.Clientes
@@ -278,20 +319,30 @@ namespace PrototipoWebApi_1.Services
 
         public ClienteDto GetClienteById(int id)
         {
-            var result = _utilServices.Clientes
-                    .Select(x => new ClienteDto
-                    {
-                        Id = x.Cli_I_Codigo,
-                        Nombre1 = x.Cli_V_Nombre_1,
-                        Nombre2 = x.Cli_V_Nombre_2,
-                        Apellido1 = x.Cli_V_Apellido_1,
-                        Apellido2 = x.Cli_V_Apellido_2,
-                        CedulaRnc = x.Cli_V_CedulaRnc,
-                        Telefono = x.Cli_V_Telefono,
-                        Email = x.Cli_V_email,
-                        Proyecto = x.Proyecto.Pro_I_Codigo.ToString(),
-                        Estado = x.Estado,
-                    }).Where(x => x.Id == id).Single();
+            var result = new ClienteDto();
+            try
+            {
+                result = _utilServices.Clientes
+                  .Select(x => new ClienteDto
+                  {
+                      Id = x.Cli_I_Codigo,
+                      Nombre1 = x.Cli_V_Nombre_1,
+                      Nombre2 = x.Cli_V_Nombre_2,
+                      Apellido1 = x.Cli_V_Apellido_1,
+                      Apellido2 = x.Cli_V_Apellido_2,
+                      CedulaRnc = x.Cli_V_CedulaRnc,
+                      Telefono = x.Cli_V_Telefono,
+                      Email = x.Cli_V_email,
+                      Proyecto = x.Proyecto.Pro_I_Codigo.ToString(),
+                      Estado = x.Estado,
+                  }).Where(x => x.Id == id).Single();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+
+            }
+           
 
             return result;
         }
@@ -312,6 +363,8 @@ namespace PrototipoWebApi_1.Services
             }
             catch (Exception ex)
             {
+                _utilServices.Errores.Add(ex.SaveModel());
+                _utilServices.SaveChanges();
                 throw ex;
             }
             return result;
@@ -333,6 +386,8 @@ namespace PrototipoWebApi_1.Services
             }
             catch (Exception ex)
             {
+                 _utilServices.Errores.Add(ex.SaveModel());
+                _utilServices.SaveChanges();
                 throw ex;
             }
             return result;
@@ -370,17 +425,28 @@ namespace PrototipoWebApi_1.Services
 
         public UsuarioDto GetUsuarioById(int id)
         {
-            var result = _utilServices.Usuario
-                    .Select(x => new UsuarioDto
-                    {
-                        Id = x.Usr_I_CodigoUsuario,
-                        Nombre = x.Usr_V_Nombre,
-                        NombreUsuario = x.Usr_V_NombreUsuario,
-                        PassWord = x.Usr_V_PassWord,
-                        Cargo = x.Cargo.Pos_I_Codigo.ToString(),
-                        Email = x.Usr_V_Email,
-                        Estado = x.Estado
-                    }).Where(x => x.Id == id).Single();
+            var result = new UsuarioDto();
+            try
+            {
+                result = _utilServices.Usuario
+                 .Select(x => new UsuarioDto
+                 {
+                     Id = x.Usr_I_CodigoUsuario,
+                     Nombre = x.Usr_V_Nombre,
+                     NombreUsuario = x.Usr_V_NombreUsuario,
+                     PassWord = x.Usr_V_PassWord,
+                     Cargo = x.Cargo.Pos_I_Codigo.ToString(),
+                     Email = x.Usr_V_Email,
+                     Estado = x.Estado
+                 }).Where(x => x.Id == id).Single();
+            }
+            catch (Exception ex)
+            {
+                _utilServices.Errores.Add(ex.SaveModel());
+                _utilServices.SaveChanges();
+                throw ex;
+            }
+          
 
             return result;
         }
@@ -400,6 +466,8 @@ namespace PrototipoWebApi_1.Services
             }
             catch (Exception ex)
             {
+                _utilServices.Errores.Add(ex.SaveModel());
+                _utilServices.SaveChanges();
                 throw ex;
             }
             return result;
@@ -419,6 +487,8 @@ namespace PrototipoWebApi_1.Services
             }
             catch (Exception ex)
             {
+                _utilServices.Errores.Add(ex.SaveModel());
+                _utilServices.SaveChanges();
                 throw ex;
             }
             return result;
@@ -452,6 +522,8 @@ namespace PrototipoWebApi_1.Services
             }
             catch (Exception ex)
             {
+                _utilServices.Errores.Add(ex.SaveModel());
+                _utilServices.SaveChanges();
                 result.Success = false;
                 throw ex;
             }
@@ -467,7 +539,6 @@ namespace PrototipoWebApi_1.Services
 
         public IEnumerable<TareasDto> GetAllTareas()
         {
-
             var result = _utilServices.Tareas
                     .Select(x => new TareasDto
                     {
@@ -486,18 +557,28 @@ namespace PrototipoWebApi_1.Services
 
         public  TareasDto GetTareaById(int id)
         {
-            var result =   _utilServices.Tareas
-                        .Select(x => new TareasDto
-                        {
-                            Id = x.Codigo,
-                            Estado = x.Estado,
-                            Fecha = x.FechaCreacion,
-                            Titulo = x.Titulo,
-                            Usuario = x.Usuario.Usr_I_CodigoUsuario.ToString(),
-                            Proyecto = x.Proyecto.Pro_I_Codigo.ToString(),
-                            Comentario = x.Comentario
-                        }).Where(x => x.Id == id).Single();
-
+            var result = new TareasDto();
+            try
+            {
+                 result = _utilServices.Tareas
+                       .Select(x => new TareasDto
+                       {
+                           Id = x.Codigo,
+                           Estado = x.Estado,
+                           Fecha = x.FechaCreacion,
+                           Titulo = x.Titulo,
+                           Usuario = x.Usuario.Usr_I_CodigoUsuario.ToString(),
+                           Proyecto = x.Proyecto.Pro_I_Codigo.ToString(),
+                           Comentario = x.Comentario
+                       }).Where(x => x.Id == id).Single();
+            }
+            catch (Exception ex)
+            {
+                _utilServices.Errores.Add(ex.SaveModel());
+                    _utilServices.SaveChanges();
+               
+                throw ex;
+            }
             return   result;
         }
 
@@ -518,6 +599,8 @@ namespace PrototipoWebApi_1.Services
             }
             catch (Exception ex)
             {
+                _utilServices.Errores.Add(ex.SaveModel());
+                _utilServices.SaveChanges();
                 result.Success = false;
                 throw ex;
             }
@@ -540,6 +623,8 @@ namespace PrototipoWebApi_1.Services
             }
             catch (Exception ex)
             {
+                _utilServices.Errores.Add(ex.SaveModel());
+                _utilServices.SaveChanges();
                 throw ex;
             }
             return result;
@@ -559,9 +644,31 @@ namespace PrototipoWebApi_1.Services
             }
             catch (Exception ex)
             {
+                _utilServices.Errores.Add(ex.SaveModel());
+                _utilServices.SaveChanges();
                 throw ex;
             }
             return result;
         }
+
+
+
+        /// <summary>
+        /// Errores List
+        /// </summary>
+        /// <returns></returns>
+        ///
+        public IEnumerable<ErroresDto> GetAllErrores()
+        {
+            var result = _utilServices.Errores.Select(x => new ErroresDto
+            {
+                Id = x.Codigo,
+                Mensaje = x.Mensaje,
+                Source = x.Source,
+                StackTrace = x.StackTrace
+            }); ;
+            return result;
+        }
+
     }
 }

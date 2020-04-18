@@ -53,11 +53,12 @@ namespace PrototipoWebApi_1.Services
             }
             catch (Exception ex)
             {
+                _colaboradorServices.Errores.Add(ex.SaveModel());
+                _colaboradorServices.SaveChanges();
                 throw ex;
             }
             return result;
         }
-
 
 
         public OperationResult<Colaborador> UpdateColaborador(ColaboradoresSaveDto colaborador)
@@ -74,6 +75,8 @@ namespace PrototipoWebApi_1.Services
             }
             catch (Exception ex)
             {
+                _colaboradorServices.Errores.Add(ex.SaveModel());
+                _colaboradorServices.SaveChanges();
                 throw ex;
             }
             return result;
@@ -83,22 +86,35 @@ namespace PrototipoWebApi_1.Services
 
         public ColaboradoresDto GetRolaboradoresById(int id)
         {
-            var result = _colaboradorServices.Colaboradors
-                   .Select(x => new ColaboradoresDto
-                   {
-                       Id = x.Col_I_Codigo,
-                       Nombre1 =  x.Col_V_Nombre_1,
-                       Nombre2 = x.Col_V_Nombre_2,
-                       Apellido1 = x.Col_V_Apellido_1,
-                       Apellido2 = x.Col_V_Apellido_2,
-                       Cedula = x.Col_V_Cedula,
-                       Estado = x.Col_B_Estado,
-                       Sexo = x.Col_C_Sexo,
-                       Fecha_Nacimiento = x.Col_D_Fecha_Nacimiento,
-                       Departamento = x.Departamentos.Dep_I_Codigo.ToString(),
-                       Pocisiones = x.Pocisiones.Pos_I_Codigo.ToString()
-                   }).Where(x => x.Id == id).Single();
 
+            var result = new ColaboradoresDto();
+
+            try
+            {
+                result = _colaboradorServices.Colaboradors
+                 .Select(x => new ColaboradoresDto
+                 {
+                     Id = x.Col_I_Codigo,
+                     Nombre1 = x.Col_V_Nombre_1,
+                     Nombre2 = x.Col_V_Nombre_2,
+                     Apellido1 = x.Col_V_Apellido_1,
+                     Apellido2 = x.Col_V_Apellido_2,
+                     Cedula = x.Col_V_Cedula,
+                     Estado = x.Col_B_Estado,
+                     Sexo = x.Col_C_Sexo,
+                     Fecha_Nacimiento = x.Col_D_Fecha_Nacimiento,
+                     Departamento = x.Departamentos.Dep_I_Codigo.ToString(),
+                     Pocisiones = x.Pocisiones.Pos_I_Codigo.ToString()
+                 }).Where(x => x.Id == id).Single();
+
+            }
+            catch (Exception ex)
+            {
+                _colaboradorServices.Errores.Add(ex.SaveModel());
+                _colaboradorServices.SaveChanges();
+                throw ex;
+            }
+          
             return result;
 
         }
@@ -114,6 +130,8 @@ namespace PrototipoWebApi_1.Services
             }
             catch (Exception ex)
             {
+                _colaboradorServices.Errores.Add(ex.SaveModel());
+                _colaboradorServices.SaveChanges();
                 throw ex;
             }
 
@@ -134,6 +152,8 @@ namespace PrototipoWebApi_1.Services
             }
             catch (Exception ex)
             {
+                _colaboradorServices.Errores.Add(ex.SaveModel());
+                _colaboradorServices.SaveChanges();
                 throw ex;
             }
             return result;

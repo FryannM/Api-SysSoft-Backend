@@ -24,7 +24,6 @@ namespace PrototipoWebApi_1.Controllers
         [HttpGet("usuarios-list")]
         public IActionResult Usuarios() => Ok(_utilServices.Usuarios());
 
-        // GET api/values/5
         [HttpGet("{id}")]
         public IActionResult GetUsuarioById(int id)
             => Ok( _utilServices.GetUsuarioById(id));
@@ -37,11 +36,10 @@ namespace PrototipoWebApi_1.Controllers
         public OperationResult<Usuario> Put([FromBody]UsuarioSaveDto model)
         => _utilServices.UpdateUsuario(model);
 
-        // PUT api/values/5
         [HttpPost("login")]
-        public  OperationResult <Usuario> Login([FromBody]Login login)  =>  _utilServices.Login(login);
+        public  OperationResult <Usuario> Login([FromBody]Login login)
+            =>  _utilServices.Login(login);
 
-        // GET api/values/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
             => Ok(_utilServices.DeleteUsuario(id));
