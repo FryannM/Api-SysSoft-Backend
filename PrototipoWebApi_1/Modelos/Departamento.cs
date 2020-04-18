@@ -8,7 +8,7 @@ namespace PrototipoWebApi_1.Modelos
     public class Departamento
     {
         [Key]
-        [JsonProperty(PropertyName = "codigo")]
+        [JsonProperty(PropertyName = "id")]
         public virtual  int Dep_I_Codigo { get; set; }
         [JsonProperty(PropertyName = "descripcion")]
         [Column(TypeName = "varchar(30)")]

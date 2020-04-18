@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using PrototipoWebApi_1.Abstract;
 using PrototipoWebApi_1.Dtos;
 using PrototipoWebApi_1.Interfaces;
@@ -29,11 +25,11 @@ namespace PrototipoWebApi_1.Controllers
         public IActionResult GetTareaById(int id) => Ok(_utilServices.GetTareaById(id));
 
 
-        [HttpPost("tareas")]
+        [HttpPost("tarea")]
         public OperationResult<Tareas> Post([FromBody]TareaSaveDto model)
             => _utilServices.SaveTareas(model);
 
-        [HttpPut("tareas")]
+        [HttpPut("tarea")]
         public OperationResult<Tareas> Put([FromBody]TareaSaveDto model)
          => _utilServices.UpdateTareas(model);
 

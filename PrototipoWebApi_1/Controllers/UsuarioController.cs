@@ -21,6 +21,9 @@ namespace PrototipoWebApi_1.Controllers
         [HttpGet("usuarios")]
         public IActionResult Get() => Ok( _utilServices.GetAllUsuarios());
 
+        [HttpGet("usuarios-list")]
+        public IActionResult Usuarios() => Ok(_utilServices.Usuarios());
+
         // GET api/values/5
         [HttpGet("{id}")]
         public IActionResult GetUsuarioById(int id)

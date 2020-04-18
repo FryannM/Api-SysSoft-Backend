@@ -6,7 +6,7 @@ namespace PrototipoWebApi_1.Modelos
     public class Posicion
     {
         [Key]
-        [JsonProperty(PropertyName = "codigo")]
+        [JsonProperty(PropertyName = "id")]
         public int Pos_I_Codigo { get; set; }
         [JsonProperty(PropertyName = "descripcion")]
         public string Pos_V_Descripcion { get; set; }

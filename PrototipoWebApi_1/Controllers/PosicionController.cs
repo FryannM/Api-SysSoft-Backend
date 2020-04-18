@@ -38,8 +38,13 @@ namespace PrototipoWebApi_1.Controllers
 
 
         [HttpPost("posicion")]
-        public OperationResult<Posicion> Login([FromBody]PosicionDtoSave model)
+        public OperationResult<Posicion> Post([FromBody]PosicionDtoSave model)
             => _utilServices.SavePosicion(model);
+
+
+        [HttpPut("posicion")]
+        public OperationResult<Posicion> Put([FromBody]PosicionDtoSave model)
+            => _utilServices.UpdatePosicion(model);
     }
 
 }

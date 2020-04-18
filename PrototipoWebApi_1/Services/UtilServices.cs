@@ -51,6 +51,26 @@ namespace PrototipoWebApi_1.Services
             return result;
         }
 
+
+        public OperationResult<Posicion> UpdatePosicion(PosicionDtoSave posicion)
+        {
+            var result = new OperationResult<Posicion>();
+
+            try
+            {
+                _utilServices.Posicion.Update(posicion.MapModel());
+                _utilServices.SaveChanges();
+
+                result.Success = true;
+                result.ResultObject = posicion.MapModel();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return result;
+        }
+
         public IEnumerable<CargoListDto> Posiciones() =>
 
          _utilServices.Posicion.Select(x => new CargoListDto
@@ -338,6 +358,14 @@ namespace PrototipoWebApi_1.Services
 
             return result;
         }
+
+        public IEnumerable<UsuarioListDto> Usuarios() =>
+
+           _utilServices.Usuario.Select(x => new UsuarioListDto
+           {
+               Id = x.Usr_I_CodigoUsuario,
+               Nombre = x.Usr_V_Nombre
+           });
 
 
         public UsuarioDto GetUsuarioById(int id)
