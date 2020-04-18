@@ -436,6 +436,30 @@ namespace PrototipoWebApi_1.Services
             result.ResultObject = model;
             return result;
         }
+
+        public OperationResult<Usuario> DeleteUsuario(int Id)
+        {
+            var result = new OperationResult<Usuario>();
+
+            var usuario = _utilServices.Usuario.Find(Id);
+            try
+            {
+                _utilServices.Usuario.Remove(usuario);
+                _utilServices.SaveChanges();
+                result.ResultObject = usuario;
+                result.Messages.Add("Success");
+                result.Success = true;
+            }
+            catch (Exception ex)
+            {
+                result.Success = false;
+                throw ex;
+            }
+
+            return result;
+
+        }
+
         /// <summary>
         /// Tareas Mantenimiento
         /// </summary>
@@ -469,14 +493,38 @@ namespace PrototipoWebApi_1.Services
                             Estado = x.Estado,
                             Fecha = x.FechaCreacion,
                             Titulo = x.Titulo,
-                            Usuario = x.Usuario.Usr_V_Nombre,
-                            Proyecto = x.Proyecto.Pro_V_Descripcion,
+                            Usuario = x.Usuario.Usr_I_CodigoUsuario.ToString(),
+                            Proyecto = x.Proyecto.Pro_I_Codigo.ToString(),
                             Comentario = x.Comentario
                         }).Where(x => x.Id == id).Single();
 
             return   result;
         }
 
+
+        public OperationResult<Tareas> DeleteTarea(int Id)
+        {
+            var result = new OperationResult<Tareas>();
+
+            var tarea =  _utilServices.Tareas.Find(Id);
+            try
+            {
+                _utilServices.Tareas.Remove(tarea);
+                _utilServices.SaveChanges();
+                result.ResultObject = tarea;
+                result.Messages.Add("Success");
+                result.Success = true;
+
+            }
+            catch (Exception ex)
+            {
+                result.Success = false;
+                throw ex;
+            }
+
+            return result;
+
+        }
 
         public OperationResult<Tareas> SaveTareas(TareaSaveDto tareas)
         {

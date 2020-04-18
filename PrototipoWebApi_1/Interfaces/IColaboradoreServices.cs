@@ -12,7 +12,7 @@ namespace PrototipoWebApi_1.Interfaces
         IEnumerable<ColaboradoresDto> GetColaboradors();
         ColaboradoresDto GetRolaboradoresById(int id);
         OperationResult<Colaborador> SaveColaborador(ColaboradoresSaveDto colaborador);
-        Task<Colaborador> DeleteColaborador(int id);
+        OperationResult<Colaborador> DeleteColaborador(int id);
         OperationResult<Colaborador> UpdateColaborador(ColaboradoresSaveDto colaborador);
     }
 }

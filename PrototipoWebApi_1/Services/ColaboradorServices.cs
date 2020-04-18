@@ -33,7 +33,7 @@ namespace PrototipoWebApi_1.Services
                        Fecha_Nacimiento = x.Col_D_Fecha_Nacimiento,
                        Departamento = x.Departamentos.Dep_V_Descripcion,
                        Pocisiones = x.Pocisiones.Pos_V_Descripcion
-                   });
+                   }).Where( x => x.Estado == 'A');
 
             return result;
 
@@ -120,14 +120,22 @@ namespace PrototipoWebApi_1.Services
             return colaborador;
 
         }
-
-        public async Task<Colaborador> DeleteColaborador(int id)
+        public OperationResult<Colaborador> DeleteColaborador(int id)
         {
-            var result = await
-                _colaboradorServices.Colaboradors.FindAsync(id);
+            var result = new OperationResult<Colaborador>();
+            var colaborador = _colaboradorServices.Colaboradors.Find(id);
+            try
+            {
+                _colaboradorServices.Colaboradors.Remove(colaborador);
+                _colaboradorServices.SaveChanges();
 
-            _colaboradorServices.Colaboradors.Remove(result);
-            await _colaboradorServices.SaveChangesAsync();
+                result.Success = true;
+                result.ResultObject = colaborador;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
             return result;
         }
     }

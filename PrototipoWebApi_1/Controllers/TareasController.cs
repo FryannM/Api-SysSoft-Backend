@@ -24,6 +24,9 @@ namespace PrototipoWebApi_1.Controllers
         [HttpGet("{id}")]
         public IActionResult GetTareaById(int id) => Ok(_utilServices.GetTareaById(id));
 
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id) => Ok(_utilServices.DeleteTarea(id));
+
 
         [HttpPost("tarea")]
         public OperationResult<Tareas> Post([FromBody]TareaSaveDto model)

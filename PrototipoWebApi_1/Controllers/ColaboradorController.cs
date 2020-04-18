@@ -31,5 +31,8 @@ namespace PrototipoWebApi_1.Controllers
         [HttpPut("colaborador")]
         public OperationResult<Colaborador> Put([FromBody]ColaboradoresSaveDto model)
            => _colaboradoreServices.UpdateColaborador(model);
+       
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id) => Ok(_colaboradoreServices.DeleteColaborador(id));
     }
 }

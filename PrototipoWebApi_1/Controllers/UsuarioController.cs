@@ -41,5 +41,11 @@ namespace PrototipoWebApi_1.Controllers
         [HttpPost("login")]
         public  OperationResult <Usuario> Login([FromBody]Login login)  =>  _utilServices.Login(login);
 
+        // GET api/values/5
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+            => Ok(_utilServices.DeleteUsuario(id));
+
+
     }
 }
