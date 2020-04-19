@@ -9,9 +9,5 @@ namespace PrototipoWebApi_1.Dtos
         public DateTime FechaInicio { get; set; }
         public DateTime FechaFin { get; set; }
 
-
-
-
-
     }
 }

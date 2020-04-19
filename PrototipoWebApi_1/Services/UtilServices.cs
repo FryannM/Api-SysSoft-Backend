@@ -105,7 +105,7 @@ namespace PrototipoWebApi_1.Services
 
         public TeamDto GetlTeamsById(int id)
         {
-            var result = new TeamDto();
+            TeamDto result = null;
             try
             {
                 result = _utilServices.Team
@@ -190,10 +190,10 @@ namespace PrototipoWebApi_1.Services
 
         public ProyectoDto GetProyectos( int id)
         {
-            var result = new ProyectoDto();
+            ProyectoDto result = null;
             try
             {
-                _utilServices.Proyectos.Select(x => new ProyectoDto
+              result =   _utilServices.Proyectos.Select(x => new ProyectoDto
                 {
                     Id = x.Pro_I_Codigo,
                     Descripcion = x.Pro_V_Descripcion,
@@ -319,7 +319,7 @@ namespace PrototipoWebApi_1.Services
 
         public ClienteDto GetClienteById(int id)
         {
-            var result = new ClienteDto();
+            ClienteDto result = null;
             try
             {
                 result = _utilServices.Clientes
@@ -425,7 +425,7 @@ namespace PrototipoWebApi_1.Services
 
         public UsuarioDto GetUsuarioById(int id)
         {
-            var result = new UsuarioDto();
+            UsuarioDto result = null;
             try
             {
                 result = _utilServices.Usuario
@@ -557,7 +557,7 @@ namespace PrototipoWebApi_1.Services
 
         public  TareasDto GetTareaById(int id)
         {
-            var result = new TareasDto();
+            TareasDto result = null;
             try
             {
                  result = _utilServices.Tareas
@@ -660,15 +660,61 @@ namespace PrototipoWebApi_1.Services
         ///
         public IEnumerable<ErroresDto> GetAllErrores()
         {
-            var result = _utilServices.Errores.Select(x => new ErroresDto
+                var result = _utilServices.Errores.Select(x => new ErroresDto
             {
                 Id = x.Codigo,
                 Mensaje = x.Mensaje,
                 Source = x.Source,
-                StackTrace = x.StackTrace
+                StackTrace = x.StackTrace,
             }); ;
+            return result;
+        }
+
+
+
+
+
+        /// <summary>
+        /// Team Colaborador
+        /// </summary>
+        /// <returns></returns>
+        ///
+
+        public IEnumerable<TeamColaboradoresDto> GetAllTeamColaboradores()
+        {
+            var result = _utilServices.TeamColaboradores.Select(x => new TeamColaboradoresDto
+            {
+                 Id = x.Id,
+                 Team = x.Team.Descripcion,
+                 Colaborador = string.Concat(x.Colaborador.Col_V_Nombre_1," ", x.Colaborador.Col_V_Apellido_1),
+                 Estado = x.Estado,
+                 Fecha = x.Fecha
+            });
+               
+            return result;
+        }
+
+        public OperationResult<TeamColaboradores> SaveTeamColabodaroes(TeamColaboradoresSave team)
+        {
+            var result = new OperationResult<TeamColaboradores>();
+
+            try
+            {
+                _utilServices.TeamColaboradores.Add(team.MapModel());
+                _utilServices.SaveChanges();
+
+                result.Success = true;
+                result.ResultObject = team.MapModel();
+            }
+            catch (Exception ex)
+            {
+                _utilServices.Errores.Add(ex.SaveModel());
+                _utilServices.SaveChanges();
+                throw ex;
+            }
             return result;
         }
 
     }
 }
+

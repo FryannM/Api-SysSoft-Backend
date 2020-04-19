@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 
 namespace PrototipoWebApi_1.Modelos
@@ -12,9 +13,8 @@ namespace PrototipoWebApi_1.Modelos
         public string Mensaje { get; set; }
         public string StackTrace { get; set; }
         public string Source { get; set; }
-     //   public  virtual Usuario Usuario { get; set; }
+        [ForeignKey("Usr_I_CodigoUsuario")]
         public int Usr_I_CodigoUsuario { get; set; }
-      
 
     }
 }
