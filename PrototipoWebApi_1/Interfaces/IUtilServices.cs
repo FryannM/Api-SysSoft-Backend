@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using PrototipoWebApi_1.Abstract;
 using PrototipoWebApi_1.Dtos;
@@ -53,11 +54,17 @@ namespace PrototipoWebApi_1.Interfaces
         IEnumerable<ErroresDto> GetAllErrores();
 
 
+        //IEnumerable<TeamColaboradoresDto> GetAllTeamColaboradores();
+        // IEnumerable<TeamColaboradores> GetAllTeamColaboradores();
 
-        IEnumerable<TeamColaboradoresDto> GetAllTeamColaboradores();
-        OperationResult<TeamColaboradores> SaveTeamColabodaroes(TeamColaboradoresSave team);
-        //IEnumerable<TeamColaboradorDto> GetAllTeamColaboradores();
-        //   IEnumerable<ColaboradoresTeam> GetAllTeamColaboradores();
+        // TeamColaboradoresDto GetAllTeamColaboradores();
+        // TeamColaboradoresDto GetAllTeamColaboradores(int id);
+        //TeamColaboradores GetAllTeamColaboradores(int id);
+        IQueryable<TeamColaboradores> GetAllTeamColaboradores(int id);
+       // IQueryable<TeamSingle> GetAllTeamColaboradores(int id);
+
+        OperationResult<TeamColaboradores> SaveTeamColabodaroes(TeamColaboradores team);
+       // OperationResult<TeamColaboradores> SaveTeamColabodaroes(TeamColaboradoresSave team);
 
     }
 }

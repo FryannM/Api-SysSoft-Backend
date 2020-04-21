@@ -137,18 +137,16 @@ namespace PrototipoWebApi_1.Abstract
 
         public static TeamColaboradores MapModel(this TeamColaboradoresSave x)
         {
-            return new TeamColaboradores
-            {
-                Id = x.Id,
+            var result =  new  TeamColaboradores()
+            { 
                 Codigo = x.TeamCodigo,
                 Col_I_Codigo = x.ColaboradorCodigo,
                 Estado = x.Estado,
                 Fecha = x.Fecha,
             };
+
+            return result;
         }
-
-
-        
 
     }
 }

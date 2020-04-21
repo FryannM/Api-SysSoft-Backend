@@ -21,7 +21,7 @@ namespace PrototipoWebApi_1.Modelos
         public string Col_V_Nombre_1 { get; set; }
         [Column(TypeName = "varchar(20)")]
 
-        [JsonProperty(PropertyName ="Nombre2")]
+        [JsonProperty(PropertyName = "Nombre2")]
         public string Col_V_Nombre_2 { get; set; }
         [Column(TypeName = "varchar(20)")]
 
@@ -43,7 +43,7 @@ namespace PrototipoWebApi_1.Modelos
 
 
         public int Dep_I_Codigo { get; set; }
-        public virtual Departamento  Departamentos { get; set; }
+        public virtual Departamento Departamentos { get; set; }
         public int Pos_I_Codigo { get; set; }
         public virtual Posicion Pocisiones { get; set; }
 

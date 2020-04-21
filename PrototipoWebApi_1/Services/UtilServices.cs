@@ -672,45 +672,39 @@ namespace PrototipoWebApi_1.Services
 
 
 
-
-
         /// <summary>
         /// Team Colaborador
         /// </summary>
         /// <returns></returns>
         ///
 
-        public IEnumerable<TeamColaboradoresDto> GetAllTeamColaboradores()
+        public IQueryable<TeamColaboradores> GetAllTeamColaboradores(int id)
         {
-            var result = _utilServices.TeamColaboradores.Select(x => new TeamColaboradoresDto
-            {
-                 Id = x.Id,
-                 Team = x.Team.Descripcion,
-                 Colaborador = string.Concat(x.Colaborador.Col_V_Nombre_1," ", x.Colaborador.Col_V_Apellido_1),
-                 Estado = x.Estado,
-                 Fecha = x.Fecha
-            });
-               
+            var result = _utilServices.TeamColaboradores.Include(x => x.Team)
+                .Include(x => x.Colaborador)
+                .Where(x => x.Codigo == id);
             return result;
+
         }
 
-        public OperationResult<TeamColaboradores> SaveTeamColabodaroes(TeamColaboradoresSave team)
+
+        public OperationResult<TeamColaboradores> SaveTeamColabodaroes(TeamColaboradores team)
         {
             var result = new OperationResult<TeamColaboradores>();
 
             try
             {
-                _utilServices.TeamColaboradores.Add(team.MapModel());
+                _utilServices.TeamColaboradores.Add(team);
                 _utilServices.SaveChanges();
 
                 result.Success = true;
-                result.ResultObject = team.MapModel();
+                result.ResultObject = team;
             }
             catch (Exception ex)
             {
                 _utilServices.Errores.Add(ex.SaveModel());
                 _utilServices.SaveChanges();
-                throw ex;
+                throw ex.InnerException;
             }
             return result;
         }

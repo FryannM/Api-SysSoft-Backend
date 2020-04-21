@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using PrototipoWebApi_1.Abstract;
 using PrototipoWebApi_1.Dtos;
@@ -19,12 +20,14 @@ namespace PrototipoWebApi_1.Controllers
             _utilServices = utilServices;
         }
         // GET: api/values
-        [HttpGet("teamcolaboradores")]
-        public IEnumerable<TeamColaboradoresDto> Get() => _utilServices.GetAllTeamColaboradores();
+        //[HttpGet("teamcolaboradores")]
+        //public IEnumerable<TeamColaboradores> Get() => _utilServices.GetAllTeamColaboradores();
 
+        [HttpGet("{id}")]
+        public IQueryable<TeamColaboradores> Get(int id) => _utilServices.GetAllTeamColaboradores(id);
 
         [HttpPost("teamcolaboradores")]
-        public OperationResult<TeamColaboradores> Post([FromBody]TeamColaboradoresSave model)
+        public OperationResult<TeamColaboradores> Post([FromBody]TeamColaboradores model)
           => _utilServices.SaveTeamColabodaroes(model);
     }
 }

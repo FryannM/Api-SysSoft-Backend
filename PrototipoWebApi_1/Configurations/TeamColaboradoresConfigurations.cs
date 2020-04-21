@@ -10,10 +10,12 @@ namespace PrototipoWebApi_1.Configurations
         public void Configure(EntityTypeBuilder<TeamColaboradores> builder)
         {
             builder.ToTable("TeamColaboradores")
-                .HasKey(x => x.Id);
+                .HasKey(x => new { x.Team.Codigo, x.Colaborador.Col_I_Codigo });
 
-            builder.Property(x => x.Id)
-                .HasColumnName("Id");
+            builder.HasAlternateKey(x => x.Id);
+               
+            builder.Property(x => x.Team.Codigo)
+                .HasColumnName("TeamCodigo");
 
             builder.Property(x => x.Codigo)
                .HasColumnName("Codigo");
@@ -27,8 +29,9 @@ namespace PrototipoWebApi_1.Configurations
             builder.Property(x => x.Estado)
                .HasColumnName("Estado");
 
-            builder.HasOne(x => x.Colaborador);
             builder.HasOne(x => x.Team);
+
+         
         }
     }
 }
