@@ -213,11 +213,7 @@ namespace PrototipoWebApi_1.Services
             
         }
 
-             
-          
-
-
-
+            
         public IEnumerable<ProyectosListDto> Proyectos() =>
 
           _utilServices.Proyectos.Select(x => new ProyectosListDto
@@ -498,13 +494,33 @@ namespace PrototipoWebApi_1.Services
         public OperationResult<Usuario> Login(Login login)
         {
             var result = new OperationResult<Usuario>();
-            var log = _utilServices.Usuario
-             .Where(x => x.Usr_V_NombreUsuario == login.Usr_V_NombreUsuario &&
-            x.Usr_V_PassWord == login.Usr_V_PassWord).SingleOrDefault();
-          var model =  _mapper.Map<Usuario>(log);
-            result.Success = true;
-            result.ResultObject = model;
+            try
+            {
+                var log = _utilServices.Usuario
+                    .Where(x => x.Usr_V_NombreUsuario == login.Usr_V_NombreUsuario &&
+                      x.Usr_V_PassWord == login.Usr_V_PassWord).SingleOrDefault();
+
+
+                if (log != null)
+                {
+                    result.Success = true;
+                    result.Messages.Add("Login success");
+                    result.ResultObject = log;
+                }
+                result.Messages.Add("Login Fail");
+
+
+            }
+            catch (Exception ex)
+            {
+                 result.Messages.Add("Login Fail");
+                result.Success = false;
+                _utilServices.Errores.Add(ex.SaveModel());
+                _utilServices.SaveChanges();
+
+            }
             return result;
+
         }
 
         public OperationResult<Usuario> DeleteUsuario(int Id)
@@ -660,6 +676,7 @@ namespace PrototipoWebApi_1.Services
         ///
         public IEnumerable<ErroresDto> GetAllErrores()
         {
+
                 var result = _utilServices.Errores.Select(x => new ErroresDto
             {
                 Id = x.Codigo,
