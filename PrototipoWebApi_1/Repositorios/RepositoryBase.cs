@@ -21,5 +21,7 @@ namespace PrototipoWebApi_1.Repositorios
         public DbSet<Tareas> Tareas { get; set; }
         public DbSet<Errores> Errores { get; set; }
         public DbSet<TeamColaboradores> TeamColaboradores { get; set; }
+        public DbSet<UsuarioApi> UsuarioApi { get; set; }
+
     }
 }

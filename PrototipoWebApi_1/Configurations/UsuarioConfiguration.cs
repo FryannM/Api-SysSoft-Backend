@@ -25,9 +25,9 @@ namespace PrototipoWebApi_1.Configurations
             builder.Property(x => x.Usr_V_Email)
                 .HasColumnName("Usr_V_Email");
 
-            builder.Property(x => x.Pos_I_Codigo)
-            .HasColumnName("Pos_I_Codigo");
-            builder.HasOne(x => x.Cargo);
+            //builder.Property(x => x.Pos_I_Codigo)
+            //.HasColumnName("Pos_I_Codigo");
+            //builder.HasOne(x => x.Cargo);
 
             builder.Property(x => x.Estado)
                .HasColumnName("Estado");

@@ -14,7 +14,7 @@ namespace PrototipoWebApi_1.Services
 {
     public class PosicionServices : IUtilServices
     {
-
+        private const string defatulPassword = "12345";
         private readonly RepositoryBase _utilServices;
         private readonly IMapper _mapper;
 
@@ -395,20 +395,28 @@ namespace PrototipoWebApi_1.Services
         /// <returns></returns>
         public IEnumerable<UsuarioDto> GetAllUsuarios()
         {
-            var result = _utilServices.Usuario
+            var result = _utilServices.UsuarioApi
                     .Select(x => new UsuarioDto
                     {
-                        Id = x.Usr_I_CodigoUsuario,
-                        Nombre = x.Usr_V_Nombre,
-                        NombreUsuario = x.Usr_V_NombreUsuario,
-                        PassWord = x.Usr_V_PassWord,
+                        Id = x.Id,
+                        Name = x.Name,
+                        Username = x.UserName,
+                        Password = x.Password,
                         Cargo = x.Cargo.Pos_V_Descripcion,
-                        Email = x.Usr_V_Email,
+                        Email = x.Email,
                         Estado = x.Estado
                     });
 
             return result;
         }
+
+
+
+        public IEnumerable<UsuarioApi> UsuariosApi() =>
+
+           _utilServices.UsuarioApi;
+
+
 
         public IEnumerable<UsuarioListDto> Usuarios() =>
 
@@ -424,15 +432,15 @@ namespace PrototipoWebApi_1.Services
             UsuarioDto result = null;
             try
             {
-                result = _utilServices.Usuario
+                result = _utilServices.UsuarioApi
                  .Select(x => new UsuarioDto
                  {
-                     Id = x.Usr_I_CodigoUsuario,
-                     Nombre = x.Usr_V_Nombre,
-                     NombreUsuario = x.Usr_V_NombreUsuario,
-                     PassWord = x.Usr_V_PassWord,
+                     Id = x.Id,
+                     Name = x.Name,
+                     Username = x.UserName,
+                     Password = x.Password,
                      Cargo = x.Cargo.Pos_I_Codigo.ToString(),
-                     Email = x.Usr_V_Email,
+                     Email = x.Email,
                      Estado = x.Estado
                  }).Where(x => x.Id == id).Single();
             }
@@ -442,19 +450,22 @@ namespace PrototipoWebApi_1.Services
                 _utilServices.SaveChanges();
                 throw ex;
             }
-          
+
 
             return result;
         }
 
 
-        public OperationResult<Usuario> SaveUsuario(UsuarioSaveDto usuario)
+
+
+
+        public OperationResult<UsuarioApi> SaveUsuario(UsuarioSaveDto usuario)
         {
-            var result = new OperationResult<Usuario>();
+            var result = new OperationResult<UsuarioApi>();
 
             try
             {
-                _utilServices.Usuario.Add(usuario.MapModel());
+                _utilServices.UsuarioApi.Add(usuario.MapModel());
                 _utilServices.SaveChanges();
 
                 result.Success = true;
@@ -469,13 +480,13 @@ namespace PrototipoWebApi_1.Services
             return result;
         }
 
-        public OperationResult<Usuario> UpdateUsuario(UsuarioSaveDto usuario)
+        public OperationResult<UsuarioApi> UpdateUsuario(UsuarioSaveDto usuario)
         {
-            var result = new OperationResult<Usuario>();
+            var result = new OperationResult<UsuarioApi>();
 
             try
             {
-                _utilServices.Usuario.Update(usuario.MapModel());
+                _utilServices.UsuarioApi.Update(usuario.MapModel());
                 _utilServices.SaveChanges();
 
                 result.Success = true;
@@ -490,6 +501,43 @@ namespace PrototipoWebApi_1.Services
             return result;
         }
 
+        public OperationResult<UsuarioApi> UpdatePassword(updatePasswordDto usuario)
+        {
+            var result = new OperationResult<UsuarioApi>();
+
+           var  model =  GetuserByemail(usuario.email);
+            try
+            {
+                model.Password = defatulPassword;
+                _utilServices.UsuarioApi.Update(model);
+                _utilServices.SaveChanges();
+
+                result.Success = true;
+                result.ResultObject = model;
+            }
+            catch (Exception ex)
+            {
+                _utilServices.Errores.Add(ex.SaveModel());
+                _utilServices.SaveChanges();
+                throw ex;
+            }
+            return result;
+        }
+
+
+        public UsuarioApi GetuserByemail(string email) =>
+
+             _utilServices.UsuarioApi.Where(x => x.Email == email).Single();
+
+
+
+       public  UsuarioApi Post(Login login)
+        {
+         var result = _utilServices.UsuarioApi
+             .Where(x => x.Email == login.Email &&
+             x.Password == login.Password).SingleOrDefault();
+            return result;
+        }
 
         public OperationResult<Usuario> Login(Login login)
         {
@@ -497,8 +545,8 @@ namespace PrototipoWebApi_1.Services
             try
             {
                 var log = _utilServices.Usuario
-                    .Where(x => x.Usr_V_NombreUsuario == login.Usr_V_NombreUsuario &&
-                      x.Usr_V_PassWord == login.Usr_V_PassWord).SingleOrDefault();
+                    .Where(x => x.Usr_V_Email == login.Email &&
+                      x.Usr_V_PassWord == login.Password).SingleOrDefault();
 
 
                 if (log != null)

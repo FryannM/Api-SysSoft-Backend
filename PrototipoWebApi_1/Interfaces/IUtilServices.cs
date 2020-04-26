@@ -32,12 +32,18 @@ namespace PrototipoWebApi_1.Interfaces
 
         IEnumerable<UsuarioDto> GetAllUsuarios();
         UsuarioDto GetUsuarioById(int id);
-        OperationResult<Usuario> SaveUsuario(UsuarioSaveDto usuario);
-        OperationResult<Usuario> UpdateUsuario(UsuarioSaveDto usuario);
+        OperationResult<UsuarioApi> SaveUsuario(UsuarioSaveDto usuario);
+        OperationResult<UsuarioApi> UpdateUsuario(UsuarioSaveDto usuario);
         IEnumerable<UsuarioListDto> Usuarios();
         OperationResult<Usuario> DeleteUsuario(int Id);
+        IEnumerable<UsuarioApi> UsuariosApi();
+        UsuarioApi Post(Login login);
+        UsuarioApi GetuserByemail(string email);
+        OperationResult<UsuarioApi> UpdatePassword(updatePasswordDto usuario);
+
 
         OperationResult<Usuario> Login(Login login);
+
 
         IEnumerable<TareasDto> GetAllTareas();
         TareasDto GetTareaById(int id);

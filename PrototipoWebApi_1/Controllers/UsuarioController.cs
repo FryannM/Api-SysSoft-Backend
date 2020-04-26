@@ -21,6 +21,10 @@ namespace PrototipoWebApi_1.Controllers
         [HttpGet("usuarios")]
         public IActionResult Get() => Ok( _utilServices.GetAllUsuarios());
 
+        [HttpGet("usuariosApi")]
+        public IActionResult GetUsuarioApi() => Ok(_utilServices.UsuariosApi());
+
+
         [HttpGet("usuarios-list")]
         public IActionResult Usuarios() => Ok(_utilServices.Usuarios());
 
@@ -28,18 +32,31 @@ namespace PrototipoWebApi_1.Controllers
         public IActionResult GetUsuarioById(int id)
             => Ok( _utilServices.GetUsuarioById(id));
 
+        [HttpGet("usuario/{email}")]
+        public IActionResult GetUsuariobyEmail(string email)
+         => Ok(_utilServices.GetuserByemail(email));
+
+
         [HttpPost("usuario")]
-        public OperationResult<Usuario> Post([FromBody]UsuarioSaveDto model)
+        public OperationResult<UsuarioApi> Post([FromBody]UsuarioSaveDto model)
            => _utilServices.SaveUsuario(model);
 
         [HttpPut("usuario")]
-        public OperationResult<Usuario> Put([FromBody]UsuarioSaveDto model)
+        public OperationResult<UsuarioApi> Put([FromBody]UsuarioSaveDto model)
         => _utilServices.UpdateUsuario(model);
+
+        [HttpPut("updatepassword")]
+        public OperationResult<UsuarioApi> Update([FromBody]updatePasswordDto model)
+        => _utilServices.UpdatePassword(model);
 
         [HttpPost("login")]
         public  OperationResult <Usuario> Login([FromBody]Login login)
             =>  _utilServices.Login(login);
 
+        [HttpPost("loginApi")]
+        public UsuarioApi PostApi([FromBody]Login login)
+          => _utilServices.Post(login);
+            
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
             => Ok(_utilServices.DeleteUsuario(id));

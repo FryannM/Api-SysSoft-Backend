@@ -7,20 +7,23 @@ namespace PrototipoWebApi_1.Abstract
     public static class Extentions
     {
 
-        public static Usuario MapModel( this UsuarioSaveDto usuarios)
+       
+
+
+        public static UsuarioApi MapModel(this UsuarioSaveDto usuarios)
         {
-            return new Usuario
+            return new UsuarioApi
             {
-                Usr_I_CodigoUsuario = usuarios.Id,
-                Usr_V_Nombre = usuarios.Nombre,
-                Usr_V_NombreUsuario = usuarios.NombreUsuario,
-                Usr_V_PassWord = usuarios.PassWord,
-                Usr_V_Email = usuarios.Email,
+                Id = usuarios.Id,
+                Name = usuarios.Name,
+                UserName = usuarios.UserName,
+                Password = usuarios.PassWord,
+                Email = usuarios.Email,
                 Pos_I_Codigo = usuarios.Cargo,
-                Estado =  usuarios.Estado
+                Estado = usuarios.Estado
             };
         }
-
+        
 
         public static Cliente MapModel( this ClienteDtoSave clientes)
         {
