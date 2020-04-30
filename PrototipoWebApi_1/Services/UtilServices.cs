@@ -182,10 +182,10 @@ namespace PrototipoWebApi_1.Services
         /// <returns></returns>
         ///
 
-        public ProyectoCountDto Count()
+        public TotalReacord TotalProyectos()
         {
             var count = _utilServices.Proyectos.Count();
-            var model = new ProyectoCountDto()
+            var model = new TotalReacord()
             {
                 TotalRecord = count
             };
@@ -403,6 +403,16 @@ namespace PrototipoWebApi_1.Services
                 throw ex;
             }
             return result;
+        }
+
+        public TotalReacord TotalClientes()
+        {
+            var count = _utilServices.Clientes.Count();
+            var model = new TotalReacord()
+            {
+                TotalRecord = count
+            };
+            return model;
         }
 
         /// <summary>
@@ -787,6 +797,8 @@ namespace PrototipoWebApi_1.Services
             }
             return result;
         }
+
+      
 
     }
 }

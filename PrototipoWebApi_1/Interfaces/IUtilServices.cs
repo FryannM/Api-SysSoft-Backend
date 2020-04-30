@@ -27,8 +27,8 @@ namespace PrototipoWebApi_1.Interfaces
         OperationResult<Proyecto> UpdateProyecto(ProyectoSafeDto proyecto);
         IEnumerable<ProyectosListDto> Proyectos();
         ProyectoDto GetProyectos(int id);
-
-        ProyectoCountDto Count();
+        TotalReacord TotalClientes();
+        TotalReacord TotalProyectos();
 
 
         IEnumerable <UsuarioDto> GetAllUsuarios();

@@ -158,5 +158,16 @@ namespace PrototipoWebApi_1.Services
             }
             return result;
         }
+
+
+        public TotalReacord TotalColaboradores()
+        {
+            var count = _colaboradorServices.Colaboradors.Count();
+            var model = new TotalReacord()
+            {
+                TotalRecord = count
+            };
+            return model;
+        }
     }
 }

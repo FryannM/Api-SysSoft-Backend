@@ -35,7 +35,7 @@ namespace PrototipoWebApi_1.Controllers
             => Ok(_utilServices.GetProyectos(id));
 
         [HttpGet("count")]
-        public IActionResult Count()  => Ok(_utilServices.Count());
+        public IActionResult Count()  => Ok(_utilServices.TotalProyectos());
 
 
 
