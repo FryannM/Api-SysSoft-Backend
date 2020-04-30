@@ -182,15 +182,10 @@ namespace PrototipoWebApi_1.Services
         /// <returns></returns>
         ///
 
-        public TotalReacord TotalProyectos()
-        {
-            var count = _utilServices.Proyectos.Count();
-            var model = new TotalReacord()
-            {
-                TotalRecord = count
-            };
-            return model;
-        }
+        public int TotalProyectos(int id) =>
+        
+            _utilServices.Proyectos.Count();
+        
 
            
         public IEnumerable<ProyectoDto> GeAllProyectos() =>
@@ -405,14 +400,19 @@ namespace PrototipoWebApi_1.Services
             return result;
         }
 
-        public TotalReacord TotalClientes()
+        //public TotalReacord TotalClientes(int id = 1)
+        //{
+        //    var count = _utilServices.Clientes.Count();
+        //    var model = new TotalReacord()
+        //    {
+        //        TotalRecord = count
+        //    };
+        //    return model;
+        //}
+        public int TotalClientes(int id = 1)
         {
-            var count = _utilServices.Clientes.Count();
-            var model = new TotalReacord()
-            {
-                TotalRecord = count
-            };
-            return model;
+            return _utilServices.Clientes.Count();
+            
         }
 
         /// <summary>

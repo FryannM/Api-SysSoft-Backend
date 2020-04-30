@@ -20,8 +20,8 @@ namespace PrototipoWebApi_1.Controllers
         [HttpGet("clientes")]
         public IActionResult Get() => Ok(_utilServices.GetAllClientes());
 
-        [HttpGet("count")]
-        public IActionResult Count() => Ok(_utilServices.TotalClientes());
+        [HttpGet("count/{id}")]
+        public IActionResult Count(int id) => Ok(_utilServices.TotalClientes(id));
 
         [HttpGet("{id}")]
         public IActionResult GetClienteById(int id) => Ok(_utilServices.GetClienteById(id));

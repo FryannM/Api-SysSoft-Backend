@@ -20,8 +20,8 @@ namespace PrototipoWebApi_1.Controllers
         [HttpGet("colaboradores")]
         public IActionResult Get() => Ok(_colaboradoreServices.GetColaboradors());
 
-        [HttpGet("count")]
-        public IActionResult Count() => Ok(_colaboradoreServices.TotalColaboradores());
+        [HttpGet("count/{id}")]
+        public IActionResult Count(int id) => Ok(_colaboradoreServices.TotalColaboradores(id));
 
         [HttpGet("{id}")]
         public IActionResult GetClienteById(int id) => Ok(_colaboradoreServices.GetRolaboradoresById(id));

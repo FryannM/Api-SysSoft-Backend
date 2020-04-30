@@ -14,6 +14,6 @@ namespace PrototipoWebApi_1.Interfaces
         OperationResult<Colaborador> SaveColaborador(ColaboradoresSaveDto colaborador);
         OperationResult<Colaborador> DeleteColaborador(int id);
         OperationResult<Colaborador> UpdateColaborador(ColaboradoresSaveDto colaborador);
-        TotalReacord TotalColaboradores();
+        int TotalColaboradores(int id);
     }
 }

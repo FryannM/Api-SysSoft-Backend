@@ -160,14 +160,10 @@ namespace PrototipoWebApi_1.Services
         }
 
 
-        public TotalReacord TotalColaboradores()
-        {
-            var count = _colaboradorServices.Colaboradors.Count();
-            var model = new TotalReacord()
-            {
-                TotalRecord = count
-            };
-            return model;
-        }
+        public int TotalColaboradores(int id) =>
+   
+          _colaboradorServices.Colaboradors.Count();
+         
+        
     }
 }

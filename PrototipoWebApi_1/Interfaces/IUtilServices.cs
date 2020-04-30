@@ -27,8 +27,7 @@ namespace PrototipoWebApi_1.Interfaces
         OperationResult<Proyecto> UpdateProyecto(ProyectoSafeDto proyecto);
         IEnumerable<ProyectosListDto> Proyectos();
         ProyectoDto GetProyectos(int id);
-        TotalReacord TotalClientes();
-        TotalReacord TotalProyectos();
+        int TotalProyectos(int id);
 
 
         IEnumerable <UsuarioDto> GetAllUsuarios();
@@ -57,7 +56,7 @@ namespace PrototipoWebApi_1.Interfaces
         ClienteDto GetClienteById(int id);
         OperationResult<Cliente> SaveClientes(ClienteDtoSave cliente);
         OperationResult<Cliente> UpdateCliente(ClienteDtoSave cliente);
-
+        int TotalClientes(int id);
         IEnumerable<ErroresDto> GetAllErrores();
 
 
