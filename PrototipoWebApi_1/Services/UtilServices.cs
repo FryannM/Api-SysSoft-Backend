@@ -86,6 +86,9 @@ namespace PrototipoWebApi_1.Services
         /// Team Services
         /// </summary>
         /// <returns></returns>
+        ///
+
+
 
         public IEnumerable<TeamDto> GetlAllTeams()
         {
@@ -177,6 +180,19 @@ namespace PrototipoWebApi_1.Services
         ///  Proyectos Mantenimientos
         /// </summary>
         /// <returns></returns>
+        ///
+
+        public ProyectoCountDto Count()
+        {
+            var count = _utilServices.Proyectos.Count();
+            var model = new ProyectoCountDto()
+            {
+                TotalRecord = count
+            };
+            return model;
+        }
+
+           
         public IEnumerable<ProyectoDto> GeAllProyectos() =>
             _utilServices.Proyectos.Select( x =>  new ProyectoDto
             {
@@ -734,8 +750,6 @@ namespace PrototipoWebApi_1.Services
             }); ;
             return result;
         }
-
-
 
         /// <summary>
         /// Team Colaborador

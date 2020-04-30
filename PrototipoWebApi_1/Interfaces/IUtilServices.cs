@@ -28,9 +28,10 @@ namespace PrototipoWebApi_1.Interfaces
         IEnumerable<ProyectosListDto> Proyectos();
         ProyectoDto GetProyectos(int id);
 
+        ProyectoCountDto Count();
 
 
-        IEnumerable<UsuarioDto> GetAllUsuarios();
+        IEnumerable <UsuarioDto> GetAllUsuarios();
         UsuarioDto GetUsuarioById(int id);
         OperationResult<UsuarioApi> SaveUsuario(UsuarioSaveDto usuario);
         OperationResult<UsuarioApi> UpdateUsuario(UsuarioSaveDto usuario);

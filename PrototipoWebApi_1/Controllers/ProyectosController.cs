@@ -34,6 +34,10 @@ namespace PrototipoWebApi_1.Controllers
         public IActionResult GetProyectosbyId(int id)
             => Ok(_utilServices.GetProyectos(id));
 
+        [HttpGet("count")]
+        public IActionResult Count()  => Ok(_utilServices.Count());
+
+
 
         [HttpPost("proyecto")]
         public OperationResult<Proyecto> Post([FromBody]ProyectoSafeDto model)
