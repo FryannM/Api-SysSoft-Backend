@@ -9,6 +9,7 @@ using PrototipoWebApi_1.Profilles;
 using PrototipoWebApi_1.Repositorios;
 using PrototipoWebApi_1.Services;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace PrototipoWebApi_1
 {
@@ -32,12 +33,22 @@ namespace PrototipoWebApi_1
             services.AddTransient<IColaboradoreServices, ColaboradorServices>();
             services.AddTransient<IUtilServices, PosicionServices>();
 
+
+            services.AddAuthentication(x =>
+           {
+               x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+               x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+               x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+           });
         
 
             
             var config = new AutoMapper.MapperConfiguration(cfg => {    
                 cfg.AddProfile(new ColaboradorProfile());
              });
+
+
+            var jwtSettings = new JwtSettings();
 
             services.AddSwaggerGen(c =>
             {
@@ -81,6 +92,8 @@ namespace PrototipoWebApi_1
            
             app.UseHttpsRedirection();
             app.UseMvc();
+            app.UseAuthentication();
+
         }
     }
 }

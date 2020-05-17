@@ -33,5 +33,10 @@ namespace PrototipoWebApi_1.Controllers
         [HttpPut("cliente")]
         public OperationResult<Cliente> Put([FromBody]ClienteDtoSave model)
            => _utilServices.UpdateCliente(model);
+
+
+        [HttpDelete("cliente/{id}")]
+        public OperationResult<Cliente> Delete(int  id)
+        => _utilServices.DeleteCliente(id);
     }
 }

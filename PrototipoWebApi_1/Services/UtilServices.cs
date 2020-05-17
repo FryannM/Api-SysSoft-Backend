@@ -400,15 +400,30 @@ namespace PrototipoWebApi_1.Services
             return result;
         }
 
-        //public TotalReacord TotalClientes(int id = 1)
-        //{
-        //    var count = _utilServices.Clientes.Count();
-        //    var model = new TotalReacord()
-        //    {
-        //        TotalRecord = count
-        //    };
-        //    return model;
-        //}
+        public OperationResult<Cliente> DeleteCliente(int Id)
+        {
+            var result = new OperationResult<Cliente>();
+
+            var cliente = _utilServices.Clientes.Find(Id);
+            try
+            {
+                _utilServices.Clientes.Remove(cliente);
+                _utilServices.SaveChanges();
+                result.ResultObject = cliente;
+                result.Messages.Add("Success");
+                result.Success = true;
+            }
+            catch (Exception ex)
+            {
+                _utilServices.Errores.Add(ex.SaveModel());
+                _utilServices.SaveChanges();
+                result.Success = false;
+                throw ex;
+            }
+
+            return result;
+
+        }
         public int TotalClientes(int id = 1)
         {
             return _utilServices.Clientes.Count();

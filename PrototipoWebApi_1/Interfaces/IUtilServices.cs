@@ -58,6 +58,7 @@ namespace PrototipoWebApi_1.Interfaces
         OperationResult<Cliente> UpdateCliente(ClienteDtoSave cliente);
         int TotalClientes(int id);
         IEnumerable<ErroresDto> GetAllErrores();
+        OperationResult<Cliente> DeleteCliente(int Id);
 
 
         //IEnumerable<TeamColaboradoresDto> GetAllTeamColaboradores();
